@@ -34,6 +34,19 @@ export interface GenericCardProps {
   ctaText?: string;
 }
 
+export interface AdvisingCardProps {
+  title: string;
+  advisorName: string;
+  slotsLeft: number;
+  chatMessage: {
+    sender: string;
+    text: string;
+    time: string;
+  };
+  actionItem: string;
+  ctaText: string;
+}
+
 export interface NavLink {
   label: string;
   href: string;

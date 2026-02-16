@@ -1,5 +1,6 @@
 import type {
   Announcement,
+  AdvisingCardProps,
   DisbursementCardProps,
   ClassesCardProps,
   GenericCardProps,
@@ -63,6 +64,19 @@ export const genericCardData: GenericCardProps = {
   bodyHeading: "Card Body:",
   bodyText: "Card Content",
   ctaText: "CTA",
+};
+
+export const advisingCardData: AdvisingCardProps = {
+  title: "Advising Appointments",
+  advisorName: "Amber Williams",
+  slotsLeft: 8,
+  chatMessage: {
+    sender: "Amber",
+    text: "You're currently 1.5 credits from a infosec thread.",
+    time: "12.00",
+  },
+  actionItem: "Book a meeting with Amber to discuss threads",
+  ctaText: "BOOK MEETING",
 };
 
 export const navLinks: NavLink[] = [

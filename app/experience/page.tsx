@@ -1,11 +1,13 @@
 import Navbar from "@/components/layout/Navbar";
 import NavLinks from "@/components/layout/NavLinks";
 import AnnouncementCards from "@/components/cards/AnnouncementCarousel";
+import AdvisingCard from "@/components/cards/AdvisingCard";
 import DisbursementCard from "@/components/cards/DisbursementCard";
 import ClassesCard from "@/components/cards/ClassesCard";
 import GenericCard from "@/components/cards/GenericCard";
 import {
   announcements,
+  advisingCardData,
   disbursementAlert,
   disbursementInfo,
   classesData,
@@ -30,6 +32,7 @@ export default function ExperiencePage() {
 
         {/* Card Grid */}
         <section className="flex flex-wrap content-start gap-x-[24px] gap-y-[24px] px-[42px] py-[12px]">
+          <AdvisingCard {...advisingCardData} />
           <DisbursementCard {...disbursementAlert} />
           <DisbursementCard {...disbursementInfo} />
           <ClassesCard {...classesData} />
