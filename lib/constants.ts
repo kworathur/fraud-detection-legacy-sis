@@ -68,11 +68,11 @@ export const genericCardData: GenericCardProps = {
 
 export const advisingCardData: AdvisingCardProps = {
   title: "Advising Appointments",
-  advisorName: "Amber Williams",
+  advisorName: "Amber",
   slotsLeft: 8,
   chatMessage: {
-    sender: "Amber",
-    text: "You're currently 1.5 credits from a infosec thread.",
+    sender: "Your Advisor, Amber",
+    text: "Consider adding a sysarch thread - you're only 1.5 credits away!",
     time: "12.00",
   },
   actionItem: "Book a meeting with Amber to discuss threads",

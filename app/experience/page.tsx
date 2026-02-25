@@ -4,24 +4,25 @@ import AnnouncementCards from "@/components/cards/AnnouncementCarousel";
 import AdvisingCard from "@/components/cards/AdvisingCard";
 import DisbursementCard from "@/components/cards/DisbursementCard";
 import ClassesCard from "@/components/cards/ClassesCard";
-import GenericCard from "@/components/cards/GenericCard";
 import {
   announcements,
   advisingCardData,
-  disbursementAlert,
   disbursementInfo,
   classesData,
-  genericCardData,
   navLinks,
 } from "@/lib/constants";
 
 export default function ExperiencePage() {
   return (
-    <div className="relative h-screen w-full bg-white">
-      <div className="flex h-full w-full flex-col">
-        {/* Experience Header */}
-        <header className="h-[316px] shrink-0 bg-[#475569]">
-          <div className="flex flex-col gap-[48px] px-[43px] pt-[34px]">
+    <div className="relative min-h-screen w-full bg-white">
+      <div className="flex w-full flex-col">
+        {/* Experience Header with background image */}
+        <header className="relative bg-white px-[2.625rem] py-[1.75rem]">
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('/images/header-bg.svg')" }}
+          />
+          <div className="relative flex flex-col gap-[1.25rem]">
             <Navbar />
             <AnnouncementCards announcements={announcements} />
           </div>
@@ -31,12 +32,10 @@ export default function ExperiencePage() {
         <NavLinks links={navLinks} />
 
         {/* Card Grid */}
-        <section className="flex flex-wrap content-start gap-x-[24px] gap-y-[24px] px-[42px] py-[12px]">
+        <section className="flex flex-wrap content-start gap-x-[1.5rem] gap-y-[1.5rem] bg-[#f5f5f5] px-[2.625rem] py-[0.75rem]">
           <AdvisingCard {...advisingCardData} />
-          <DisbursementCard {...disbursementAlert} />
-          <DisbursementCard {...disbursementInfo} />
           <ClassesCard {...classesData} />
-          <GenericCard {...genericCardData} />
+          <DisbursementCard {...disbursementInfo} />
         </section>
       </div>
     </div>

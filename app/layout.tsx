@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Roboto, Akshar } from "next/font/google";
+import { Roboto, Akshar, Roboto_Slab } from "next/font/google";
 import "./globals.css";
 
 const roboto = Roboto({
@@ -12,6 +12,12 @@ const akshar = Akshar({
   variable: "--font-akshar",
   subsets: ["latin"],
   weight: ["600"],
+});
+
+const robotoSlab = Roboto_Slab({
+  variable: "--font-roboto-slab",
+  subsets: ["latin"],
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.variable} ${akshar.variable} antialiased`}
+        className={`${roboto.variable} ${akshar.variable} ${robotoSlab.variable} antialiased`}
       >
         {children}
       </body>
