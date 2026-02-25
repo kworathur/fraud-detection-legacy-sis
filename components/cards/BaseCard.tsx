@@ -7,7 +7,7 @@ export default function BaseCard({
 }>) {
   return (
     <div
-      className={`flex h-[296px] w-[315px] flex-col gap-[10px] rounded bg-white py-[13px] shadow-[0_0_32px_rgba(0,0,0,0.25)] ${className}`}
+      className={`flex h-[18.5rem] w-[19.6875rem] flex-col rounded-[0.25rem] bg-white py-[0.8125rem] shadow-[0_0_2rem_rgba(0,0,0,0.25)] ${className}`}
     >
       {children}
     </div>
