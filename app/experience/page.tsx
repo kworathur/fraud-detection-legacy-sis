@@ -1,12 +1,11 @@
 import Navbar from "@/components/layout/Navbar";
 import NavLinks from "@/components/layout/NavLinks";
 import AnnouncementCards from "@/components/cards/AnnouncementCarousel";
-import AdvisingCard from "@/components/cards/AdvisingCard";
+import AssignedAdvisingCard from "@/components/cards/AssignedAdvisingCard";
 import DisbursementCard from "@/components/cards/DisbursementCard";
 import ClassesCard from "@/components/cards/ClassesCard";
 import {
   announcements,
-  advisingCardData,
   disbursementInfo,
   classesData,
   navLinks,
@@ -15,14 +14,14 @@ import {
 export default function ExperiencePage() {
   return (
     <div className="relative min-h-screen w-full bg-white">
-      <div className="flex w-full flex-col">
+      <div className="flex min-h-screen w-full flex-col">
         {/* Experience Header with background image */}
-        <header className="relative bg-white px-[2.625rem] py-[1.75rem]">
+        <header className="relative bg-white px-10 py-7">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url('/images/header-bg.svg')" }}
+            style={{ backgroundImage: "url('/images/header-bg.jpg')" }}
           />
-          <div className="relative flex flex-col gap-[1.25rem]">
+          <div className="relative flex flex-col gap-5">
             <Navbar />
             <AnnouncementCards announcements={announcements} />
           </div>
@@ -32,10 +31,12 @@ export default function ExperiencePage() {
         <NavLinks links={navLinks} />
 
         {/* Card Grid */}
-        <section className="flex flex-wrap content-start gap-x-[1.5rem] gap-y-[1.5rem] bg-[#f5f5f5] px-[2.625rem] py-[0.75rem]">
-          <AdvisingCard {...advisingCardData} />
-          <ClassesCard {...classesData} />
-          <DisbursementCard {...disbursementInfo} />
+        <section className="flex-1 bg-card-grid-bg p-10 pt-3">
+          <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(19.6875rem,19.6875rem))] content-start justify-start gap-6">
+            <AssignedAdvisingCard />
+            <ClassesCard {...classesData} />
+            <DisbursementCard {...disbursementInfo} />
+          </div>
         </section>
       </div>
     </div>

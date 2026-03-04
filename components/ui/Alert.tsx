@@ -2,19 +2,19 @@ import Image from "next/image";
 
 const variants = {
   warning: {
-    bg: "bg-[#fff2f0]",
-    bar: "bg-[#b91c1c]",
-    text: "text-[#b91c1c]",
+    bg: "bg-alert-red-bg",
+    bar: "bg-alert-red",
+    text: "text-alert-red",
     icon: "warning",
   },
   success: {
-    bg: "bg-[#dcfce7]",
-    bar: "bg-[#14532d]",
-    text: "text-[#14532d]",
+    bg: "bg-success-green-bg",
+    bar: "bg-success-green",
+    text: "text-success-green",
     icon: "success",
   },
   info: {
-    bg: "bg-[#e0f2fe]",
+    bg: "bg-info-blue-bg",
     bar: "bg-[#0369a1]",
     text: "text-[#0369a1]",
     icon: "info",

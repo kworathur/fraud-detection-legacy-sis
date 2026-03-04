@@ -11,11 +11,11 @@ export default function Button({
 }>) {
   const variantClasses = {
     primary:
-      "border-[#3182ce] text-[#3182ce] bg-white hover:bg-blue-50",
+      "border-link-blue text-link-blue bg-white hover:bg-blue-50",
     secondary:
-      "border-[#3182ce] bg-[#3182ce] text-white hover:bg-[#2b6cb0]",
+      "border-link-blue bg-link-blue text-white hover:bg-[#2b6cb0]",
     warning:
-      "border-[#b91c1c] text-[#b91c1c] bg-white hover:bg-red-50",
+      "border-alert-red text-alert-red bg-white hover:bg-red-50",
   };
 
   const baseClasses =
