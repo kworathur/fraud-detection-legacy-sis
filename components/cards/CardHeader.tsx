@@ -9,7 +9,7 @@ export default function CardHeader({
 }>) {
   return (
     <div className="flex shrink-0 items-center gap-[2.5625rem] px-[0.875rem]">
-      <p className="w-[12.25rem] font-sans text-[0.9375rem] font-semibold tracking-[0.0375rem] text-[#292929]">
+      <p className="w-[12.25rem] font-sans text-[0.9375rem] font-semibold tracking-[0.0375rem] text-title-dark">
         {title}
       </p>
       {actions ?? (

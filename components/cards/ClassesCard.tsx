@@ -1,5 +1,7 @@
 import Image from "next/image";
 import TermSelector from "./TermSelector";
+import BaseCard from "./BaseCard";
+import CardHeader from "./CardHeader";
 import type { ClassesCardProps } from "@/lib/types";
 
 export default function ClassesCard({
@@ -8,23 +10,27 @@ export default function ClassesCard({
   courses,
 }: Readonly<ClassesCardProps>) {
   return (
-    <div className="flex h-[18.5rem] w-[19.6875rem] shrink-0 flex-col gap-[0.625rem] rounded-[0.25rem] bg-white px-[0.875rem] py-[1rem] shadow-[0_0_2rem_rgba(0,0,0,0.25)]">
-      <div className="relative flex shrink-0 items-center">
-        <p className="font-sans text-[0.9375rem] font-semibold tracking-[0.0375rem] text-[#292929]">
-          {title}
-        </p>
-        <div className="ml-auto flex items-center gap-[0.25rem]">
-          <Image src="/images/lock-icon.svg" alt="" width={11} height={12} />
-          <button
-            type="button"
-            className="flex h-[1.5rem] w-[1.5rem] items-center justify-center"
-          >
-            <Image src="/images/more-vert.svg" alt="" width={3} height={11} />
-          </button>
-        </div>
-      </div>
-      <div className="relative flex-1">
-        <div className="flex items-center">
+    <BaseCard
+      header={
+        <CardHeader
+          title={title}
+          actions={
+            <div className="flex items-center gap-[0.25rem]">
+              <Image src="/images/lock-icon.svg" alt="" width={11} height={12} />
+              <button
+                type="button"
+                className="flex h-[1.5rem] w-[1.5rem] items-center justify-center"
+              >
+                <Image src="/images/more-vert.svg" alt="" width={3} height={11} />
+              </button>
+            </div>
+          }
+        />
+      }
+      contentClassName="gap-[0.625rem]"
+    >
+      <div className="relative flex-1 px-[0.875rem]">
+        <div className="flex items-center pt-[0.125rem]">
           <TermSelector defaultTerm={term} />
           <div className="ml-auto">
             <Image
@@ -39,7 +45,7 @@ export default function ClassesCard({
           <div key={course.code} className="mt-[0.75rem]">
             <a
               href="#"
-              className="font-sans text-[0.8125rem] font-semibold tracking-[-0.008125rem] text-[#3182ce] underline"
+              className="font-sans text-[0.8125rem] font-semibold tracking-[-0.008125rem] text-link-blue underline"
             >
               {course.code} {course.title}
             </a>
@@ -52,6 +58,6 @@ export default function ClassesCard({
           </div>
         ))}
       </div>
-    </div>
+    </BaseCard>
   );
 }

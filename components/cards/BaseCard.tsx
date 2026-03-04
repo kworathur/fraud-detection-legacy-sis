@@ -1,15 +1,24 @@
 export default function BaseCard({
+  header,
   children,
   className = "",
+  contentClassName = "",
 }: Readonly<{
+  header: React.ReactNode;
   children: React.ReactNode;
   className?: string;
+  contentClassName?: string;
 }>) {
   return (
     <div
-      className={`flex h-[18.5rem] w-[19.6875rem] flex-col rounded-[0.25rem] bg-white py-[0.8125rem] shadow-[0_0_2rem_rgba(0,0,0,0.25)] ${className}`}
+      className={`flex w-78.75 h-74 flex-1 flex-col overflow-hidden rounded-sm bg-white shadow-[0_0_2rem_rgba(0,0,0,0.25)] ${className}`}
     >
-      {children}
+      <div className="shrink-0 pt-3.25">{header}</div>
+      <div
+        className={`flex min-h-0 flex-1 flex-col overflow-y-auto pb-3.25 ${contentClassName}`}
+      >
+        {children}
+      </div>
     </div>
   );
 }

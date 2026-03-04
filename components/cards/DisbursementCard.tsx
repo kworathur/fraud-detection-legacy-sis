@@ -10,7 +10,7 @@ function AlertBody() {
       <p className="font-[family-name:Arial,sans-serif] text-[0.875rem] font-bold leading-normal text-[#2d3748]">
         Hold Reasons:
       </p>
-      <ul className="list-disc font-[family-name:Arial,sans-serif] text-[0.8125rem] leading-[1rem] text-[#485568]">
+      <ul className="list-disc font-[family-name:Arial,sans-serif] text-[0.8125rem] leading-[1rem] text-body-text">
         <li className="mb-0 ms-[1.21875rem]">
           Your disbursement is on hold for the following reasons:
         </li>
@@ -37,7 +37,7 @@ function InfoBody() {
       <p className="font-[family-name:Arial,sans-serif] text-[0.875rem] font-bold leading-normal text-[#2d3748]">
         Details:
       </p>
-      <ul className="list-disc font-[family-name:Arial,sans-serif] text-[0.8125rem] leading-[1rem] text-[#485568]">
+      <ul className="list-disc font-[family-name:Arial,sans-serif] text-[0.8125rem] leading-[1rem] text-body-text">
         <li className="mb-0 ms-[1.21875rem]">
           Your next scholarship payment is $<strong>2,500</strong> and will be
           deposited automatically on Feb 15th.
@@ -48,7 +48,7 @@ function InfoBody() {
         </li>
         <li className="ms-[1.21875rem]">
           For alternative forms of payment, please contact{" "}
-          <a href="#" className="text-[#3182ce] underline">
+          <a href="#" className="text-link-blue underline">
             the office of financial aid
           </a>
           .
@@ -65,8 +65,10 @@ export default function DisbursementCard({
   ctaText,
 }: Readonly<DisbursementCardProps>) {
   return (
-    <BaseCard className="gap-[0.3125rem]">
-      <CardHeader title={title} />
+    <BaseCard
+      header={<CardHeader title={title} />}
+      contentClassName="gap-[0.3125rem]"
+    >
       <Alert
         variant={variant === "alert" ? "warning" : "success"}
         text={bannerText}

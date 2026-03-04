@@ -7,10 +7,8 @@ export default function AnnouncementCards({
   announcements: Announcement[];
 }>) {
   return (
-    <div className="flex gap-[21px]">
-      {announcements.map((announcement) => (
-        <AnnouncementCard key={announcement.id} announcement={announcement} />
-      ))}
+    <div>
+      <AnnouncementCard announcement={announcements[0]} />
     </div>
   );
 }

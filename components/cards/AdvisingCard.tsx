@@ -61,7 +61,7 @@ function CheckboxItem({ text }: Readonly<{ text: string }>) {
           <div className="h-[1.125rem] w-[1.125rem] rounded-[0.125rem] border border-[#3b82f6]" />
         </div>
       </div>
-      <p className="w-[15.75rem] font-[family-name:Arial,sans-serif] text-[0.8125rem] leading-[1rem] text-[#0f172a]">
+      <p className="w-[15.75rem] font-[family-name:Arial,sans-serif] text-[0.8125rem] leading-[1rem] text-slate-900">
         {text}
       </p>
     </div>
@@ -77,8 +77,10 @@ export default function AdvisingCard({
   ctaText,
 }: Readonly<AdvisingCardProps>) {
   return (
-    <BaseCard className="gap-[0.3125rem]">
-      <CardHeader title={title} />
+    <BaseCard
+      header={<CardHeader title={title} />}
+      contentClassName="gap-[0.3125rem]"
+    >
       <Alert
         variant="info"
         text={`${slotsLeft} Advising Slots Left This Week!`}

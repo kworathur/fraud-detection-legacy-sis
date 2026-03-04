@@ -11,8 +11,10 @@ export default function GenericCard({
   ctaText,
 }: Readonly<GenericCardProps>) {
   return (
-    <BaseCard className="gap-[0.3125rem]">
-      <CardHeader title={title} />
+    <BaseCard
+      header={<CardHeader title={title} />}
+      contentClassName="gap-[0.3125rem]"
+    >
       {subHeader && (
         <div className="flex shrink-0 items-start bg-white px-[0.625rem] py-[0.3125rem]">
           <div className="flex h-[1.125rem] items-center justify-center py-[0.0625rem]">
@@ -29,7 +31,7 @@ export default function GenericCard({
           </p>
         )}
         {bodyText && (
-          <p className="font-[family-name:Arial,sans-serif] text-[0.8125rem] leading-[1rem] text-[#485568]">
+          <p className="font-[family-name:Arial,sans-serif] text-[0.8125rem] leading-[1rem] text-body-text">
             {bodyText}
           </p>
         )}
