@@ -80,9 +80,9 @@ export const advisingCardData: AdvisingCardProps = {
 };
 
 export const navLinks: NavLink[] = [
-  { label: "Home", href: "/experience", active: true },
-  { label: "Academic Services", href: "#" },
-  { label: "Community", href: "#" },
-  { label: "Student Financials", href: "#" },
-  { label: "Work", href: "#" },
+  { label: "Home", href: "/experience" },
+  { label: "Academic Services", href: "/academic-services" },
+  { label: "Community", href: "/community" },
+  { label: "Student Financials", href: "/student-financials" },
+  { label: "Work", href: "/work" },
 ];
