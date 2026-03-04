@@ -37,5 +37,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 # Supported Authentication Types 
 
-- OiDC with cognito as cognito as the identity provider
+- OiDC Authorization Code + PKCE with cognito as the identity provider
 - SAML with enterprise IDP implementation pending
