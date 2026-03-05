@@ -1,12 +1,21 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import Image from "next/image";
 import { SmallNav } from "@/components/layout/Navbar";
+import NavigationSubmenu from "@/components/ui/NavigationSubmenu";
+import Table from "@/components/ui/Table";
+import Button from "@/components/ui/Button";
 import { quaidApiRequest } from "@/lib/quaid-api-client";
 import type {
   AdvisorDirectoryEntry,
   AdvisorDirectoryResponse,
 } from "@/lib/quaid-api-types";
+import type {
+  TableColumn,
+  TableRowData,
+  TablePagination,
+} from "@/lib/table-types";
 
 type AdvisingRule = {
   ruleId: string;
@@ -27,21 +36,62 @@ type RuleListResponse = {
   lastKey?: string;
 };
 
+const SUBMENU_ITEMS = [
+  {
+    label: "Assign Advisors to Students",
+    href: "/advising-configuration",
+    active: true,
+  },
+  {
+    label: "Pause/Unpause Virtual Advising",
+    href: "/advising-configuration/virtual-advising",
+    active: false,
+  },
+  {
+    label: "Customize Advising Insights",
+    href: "/advising-configuration/insights",
+    active: false,
+  },
+];
+
+const TABLE_COLUMNS: TableColumn[] = [
+  { key: "name", label: "Name", width: "27.75rem" },
+  { key: "type", label: "Type", width: "6.9375rem" },
+  { key: "advisor", label: "Advisor", width: "6.6875rem" },
+  { key: "priority", label: "Priority", width: "6.125rem" },
+  { key: "lastUpdated", label: "Last Updated", width: "8.1875rem" },
+  { key: "actions", label: "Actions" },
+];
+
+function buildRuleName(rule: AdvisingRule, advisorName: string): string {
+  const range = `${rule.parameters.start ?? ""}–${rule.parameters.end ?? ""}`;
+  const shortAdvisor = advisorName
+    .split(" ")
+    .map((part) => part.charAt(0))
+    .join("")
+    .toUpperCase();
+  return `Last_Name_${range}_${shortAdvisor}`;
+}
+
+function formatDate(iso: string): string {
+  const d = new Date(iso);
+  return d.toLocaleString("en-US", {
+    month: "numeric",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+    timeZoneName: "short",
+  });
+}
+
 export default function AdvisorAdviseeMappingsPage() {
   const [rules, setRules] = useState<AdvisingRule[]>([]);
   const [advisors, setAdvisors] = useState<AdvisorDirectoryEntry[]>([]);
-  const [advisorId, setAdvisorId] = useState("");
-  const [start, setStart] = useState("A");
-  const [end, setEnd] = useState("Z");
-  const [priority, setPriority] = useState(0);
-  const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const selectedAdvisor = useMemo(
-    () => advisors.find((advisor) => advisor.advisorId === advisorId),
-    [advisors, advisorId],
-  );
+  const [error, setError] = useState("");
 
   const loadRules = useCallback(async () => {
     const response = await quaidApiRequest<RuleListResponse>(
@@ -55,15 +105,11 @@ export default function AdvisorAdviseeMappingsPage() {
       "advising/admin/advisors?offset=0&limit=60",
     );
     setAdvisors(response.data);
-    if (!advisorId && response.data.length > 0) {
-      setAdvisorId(response.data[0]?.advisorId ?? "");
-    }
-  }, [advisorId]);
+  }, []);
 
   const loadPageData = useCallback(async () => {
     setLoading(true);
     setError("");
-
     try {
       await Promise.all([loadRules(), loadAdvisors()]);
     } catch (loadError) {
@@ -79,201 +125,87 @@ export default function AdvisorAdviseeMappingsPage() {
     void loadPageData();
   }, [loadPageData]);
 
-  const createRule = async () => {
-    setError("");
-    setMessage("");
+  const advisorMap = new Map(
+    advisors.map((a) => [a.advisorId, a.name || a.username || a.email || a.advisorId]),
+  );
 
-    try {
-      await quaidApiRequest("advising/admin/rules", {
-        method: "POST",
-        body: JSON.stringify({
-          advisorId,
-          conditionType: "LAST_NAME_RANGE",
-          parameters: { start, end },
-          priority,
-          isActive: true,
-        }),
-      });
-      setMessage("Rule created.");
-      await loadRules();
-    } catch (createError) {
-      setError(
-        createError instanceof Error
-          ? createError.message
-          : "Failed to create rule",
-      );
-    }
-  };
+  const rows: TableRowData[] = rules.map((rule) => {
+    const advisorName = advisorMap.get(rule.advisorId) ?? rule.advisorId;
+    return {
+      id: rule.ruleId,
+      name: buildRuleName(rule, advisorName),
+      type: rule.conditionType.replace(/_/g, "_"),
+      advisor: advisorName,
+      priority: rule.priority,
+      lastUpdated: formatDate(rule.createdAt),
+      actions: "",
+    };
+  });
 
-  const toggleRule = async (rule: AdvisingRule) => {
-    setError("");
-    setMessage("");
-
-    try {
-      await quaidApiRequest(`advising/admin/rules/${rule.ruleId}`, {
-        method: "PUT",
-        body: JSON.stringify({ isActive: !rule.isActive }),
-      });
-      setMessage("Rule updated.");
-      await loadRules();
-    } catch (updateError) {
-      setError(
-        updateError instanceof Error
-          ? updateError.message
-          : "Failed to update rule",
-      );
-    }
-  };
-
-  const deleteRule = async (ruleId: string) => {
-    setError("");
-    setMessage("");
-
-    try {
-      await quaidApiRequest(`advising/admin/rules/${ruleId}`, {
-        method: "DELETE",
-      });
-      setMessage("Rule deleted.");
-      await loadRules();
-    } catch (deleteError) {
-      setError(
-        deleteError instanceof Error
-          ? deleteError.message
-          : "Failed to delete rule",
-      );
-    }
+  const pagination: TablePagination = {
+    currentPage: 1,
+    totalPages: Math.max(1, Math.ceil(rules.length / 10)),
+    perPage: 10,
+    totalResults: rules.length,
   };
 
   return (
     <div className="min-h-screen w-full bg-white">
       <SmallNav />
-      <main className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-8">
-        <h1 className="font-[family-name:Arial,sans-serif] text-3xl font-bold text-black">
+
+      <div className="flex h-[2.75rem] items-center border-b border-[#d4d4d4] bg-white pl-[0.9375rem] pr-[0.625rem]">
+        <h1 className="font-[family-name:Arial,sans-serif] text-[1.125rem] font-bold text-black">
           Advising Configuration
         </h1>
+      </div>
 
-        {error && <p className="text-sm text-alert-red">{error}</p>}
-        {message && <p className="text-sm text-[#166534]">{message}</p>}
+      <div className="flex">
+        <NavigationSubmenu items={SUBMENU_ITEMS} />
 
-        <section className="rounded border border-[#e5e7eb] p-4">
-          <h2 className="mb-2 text-lg font-bold text-black">Add Mapping Rule</h2>
-          <div className="grid grid-cols-1 gap-2 md:grid-cols-4">
-            <label className="text-sm text-[#404040] md:col-span-2">
-              Advisor
-              <select
-                value={advisorId}
-                onChange={(event) => setAdvisorId(event.target.value)}
-                className="mt-1 h-9 w-full border border-[#d1d5db] px-2"
-              >
-                {advisors.map((advisor) => (
-                  <option key={advisor.advisorId} value={advisor.advisorId}>
-                    {(advisor.name || advisor.username || advisor.email || advisor.advisorId).trim()}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="text-sm text-[#404040]">
-              Last Name Start
-              <input
-                value={start}
-                maxLength={1}
-                onChange={(event) => setStart(event.target.value.toUpperCase())}
-                className="mt-1 h-9 w-full border border-[#d1d5db] px-2"
-              />
-            </label>
-            <label className="text-sm text-[#404040]">
-              Last Name End
-              <input
-                value={end}
-                maxLength={1}
-                onChange={(event) => setEnd(event.target.value.toUpperCase())}
-                className="mt-1 h-9 w-full border border-[#d1d5db] px-2"
-              />
-            </label>
-            <label className="text-sm text-[#404040]">
-              Priority
-              <input
-                type="number"
-                min={0}
-                value={priority}
-                onChange={(event) => setPriority(Number(event.target.value || 0))}
-                className="mt-1 h-9 w-full border border-[#d1d5db] px-2"
-              />
-            </label>
-          </div>
-
-          <div className="mt-2 text-xs text-[#6b7280]">
-            Selected advisor: {selectedAdvisor?.name || selectedAdvisor?.email || selectedAdvisor?.advisorId || "None"}
-          </div>
-
-          <button
-            type="button"
-            onClick={createRule}
-            disabled={!advisorId}
-            className="mt-3 rounded bg-link-blue px-3 py-1.5 text-sm font-bold text-white disabled:opacity-50"
-          >
-            Save Rule
-          </button>
-        </section>
-
-        <section className="rounded border border-[#e5e7eb] p-4">
-          <div className="mb-2 flex items-center justify-between">
-            <h2 className="text-lg font-bold text-black">Existing Rules</h2>
-            <button
-              type="button"
-              onClick={() => void loadPageData()}
-              className="rounded border border-[#d1d5db] px-3 py-1 text-sm font-bold text-[#404040]"
-            >
-              Refresh
-            </button>
-          </div>
-
-          {loading ? (
-            <p className="text-sm text-[#404040]">Loading...</p>
-          ) : rules.length === 0 ? (
-            <p className="text-sm text-[#404040]">No rules found.</p>
-          ) : (
-            <ul className="space-y-2">
-              {rules.map((rule) => (
-                <li
-                  key={rule.ruleId}
-                  className="rounded border border-[#f3f4f6] p-3 text-sm text-[#111827]"
-                >
-                  <p>
-                    <strong>Advisor:</strong> {rule.advisorId}
-                  </p>
-                  <p>
-                    <strong>Range:</strong> {String(rule.parameters.start ?? "")} -{" "}
-                    {String(rule.parameters.end ?? "")}
-                  </p>
-                  <p>
-                    <strong>Priority:</strong> {rule.priority}
-                  </p>
-                  <p>
-                    <strong>Active:</strong> {rule.isActive ? "Yes" : "No"}
-                  </p>
-                  <div className="mt-2 flex gap-2">
-                    <button
-                      type="button"
-                      onClick={() => void toggleRule(rule)}
-                      className="rounded border border-[#d1d5db] px-2 py-1 text-xs font-bold text-[#404040]"
-                    >
-                      {rule.isActive ? "Disable" : "Enable"}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => void deleteRule(rule.ruleId)}
-                      className="rounded border border-[#b91c1c] px-2 py-1 text-xs font-bold text-[#b91c1c]"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
+        <div className="flex flex-1 flex-col p-[0.5rem]">
+          {error && (
+            <p className="mb-2 font-[family-name:Arial,sans-serif] text-[0.75rem] text-alert-red">
+              {error}
+            </p>
           )}
-        </section>
-      </main>
+
+          <div className="flex flex-col gap-[0.625rem] rounded-[0.25rem] bg-white p-[0.625rem] shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]">
+            <h2 className="font-[family-name:Arial,sans-serif] text-[0.875rem] font-bold text-black">
+              Advisor-Student Assignments
+            </h2>
+            <p className="font-[family-name:Arial,sans-serif] text-[0.75rem] text-[#404040]">
+              This table lists the rules used by BuzzPort to map advisors to
+              students so that each student&#39;s advisor is dynamically displayed
+              within their personalized advising card.
+            </p>
+
+            <div className="flex flex-col items-end">
+              <Button variant="secondary">
+                <Image
+                  src="/images/plus-icon.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="mr-[0.125rem]"
+                />
+                ADD RULE
+              </Button>
+            </div>
+
+            {loading ? (
+              <p className="py-4 text-center font-[family-name:Arial,sans-serif] text-[0.75rem] text-[#404040]">
+                Loading...
+              </p>
+            ) : (
+              <Table
+                columns={TABLE_COLUMNS}
+                rows={rows}
+                pagination={pagination}
+              />
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
