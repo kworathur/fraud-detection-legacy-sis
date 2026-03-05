@@ -15,8 +15,8 @@ const variants = {
   },
   info: {
     bg: "bg-info-blue-bg",
-    bar: "bg-[#0369a1]",
-    text: "text-[#0369a1]",
+    bar: "bg-[#075985]",
+    text: "text-[#075985]",
     icon: "info",
   },
 } as const;

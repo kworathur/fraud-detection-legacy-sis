@@ -9,7 +9,7 @@ function ChatBubble({
   text,
 }: Readonly<{ sender: string; text: string }>) {
   return (
-    <div className="relative ml-[2rem] flex flex-col items-start rounded-[0.75rem] bg-white shadow-[0_0.0625rem_0.0625rem_rgba(0,0,0,0.1)]">
+    <div className="relative ml-[2rem] flex flex-col items-start rounded-[0.75rem] bg-[#f8fafc] shadow-[0_0.0625rem_0.0625rem_rgba(0,0,0,0.1)]">
       <div className="absolute bottom-0 left-[-0.375rem] h-[0.9375rem] w-[0.75rem]">
         <svg
           width="12"
@@ -18,11 +18,11 @@ function ChatBubble({
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path d="M11 15C5.5 15 1 11.5 0 5V15H11Z" fill="white" />
+          <path d="M11 15C5.5 15 1 11.5 0 5V15H11Z" fill="#f8fafc" />
         </svg>
       </div>
       <div className="flex w-full items-start px-[0.625rem] pt-[0.25rem]">
-        <p className="font-[family-name:Inter,sans-serif] text-[0.9375rem] font-semibold leading-[1.25rem] text-[#cb9c00]">
+        <p className="font-[family-name:var(--font-akshar),sans-serif] text-[0.9375rem] font-semibold leading-[1.25rem] text-[#075985]">
           {sender}
         </p>
       </div>
@@ -37,7 +37,7 @@ function ChatBubble({
 
 function AdvisorAvatar() {
   return (
-    <div className="absolute bottom-0 left-0 h-[2.5rem] w-[1.5rem] overflow-hidden rounded-full bg-[#eaddff]">
+    <div className="absolute bottom-0 left-0 h-[2.5rem] w-[1.5rem] overflow-hidden rounded-full bg-[#e0f2fe]">
       <svg
         className="absolute bottom-[0.25rem] left-[0.1875rem]"
         width="18"
@@ -46,8 +46,8 @@ function AdvisorAvatar() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <circle cx="9" cy="6" r="4" fill="#7c6fa0" />
-        <ellipse cx="9" cy="18" rx="8" ry="6" fill="#7c6fa0" />
+        <circle cx="9" cy="6" r="4" fill="#94a3b8" />
+        <ellipse cx="9" cy="18" rx="8" ry="6" fill="#94a3b8" />
       </svg>
     </div>
   );
@@ -98,7 +98,7 @@ export default function AdvisingCard({
         </div>
         <CheckboxItem text={actionItem} />
       </div>
-      <CardFooter ctaText={ctaText} />
+      <CardFooter ctaText={ctaText} ctaHref="/advising-meetings/new" />
     </BaseCard>
   );
 }

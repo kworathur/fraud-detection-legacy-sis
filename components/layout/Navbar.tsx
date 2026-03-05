@@ -64,6 +64,13 @@ const BASE_APP_SHORTCUTS: AppShortcut[] = [
     href: "/insight-designer",
     enabled: true,
   },
+  {
+    id: "advising-meetings",
+    label: "Advising Meetings",
+    icon: "/images/calendar-icon.svg",
+    href: "/advising-meetings",
+    enabled: true,
+  },
 ];
 
 const ADVISING_CONFIGURATION_SHORTCUT: AppShortcut = {
