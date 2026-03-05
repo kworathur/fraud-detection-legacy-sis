@@ -21,7 +21,7 @@ const robotoSlab = Roboto_Slab({
 });
 
 export const metadata: Metadata = {
-    title: 'GT BuzzPort V2',
+    title: 'GT BuzzPort',
     description: 'Georgia Tech Student Portal',
 };
 

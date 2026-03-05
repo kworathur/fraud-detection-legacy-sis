@@ -6,19 +6,19 @@ import type { DisbursementCardProps } from "@/lib/types";
 
 function AlertBody() {
   return (
-    <div className="flex flex-1 shrink-0 flex-col gap-[0.625rem] px-[0.875rem]">
-      <p className="font-[family-name:Arial,sans-serif] text-[0.875rem] font-bold leading-normal text-[#2d3748]">
+    <div className="flex flex-1 shrink-0 flex-col gap-2.5 px-3.5">
+      <p className="font-[Arial,sans-serif] text-[0.875rem] font-bold leading-normal text-[#2d3748]">
         Hold Reasons:
       </p>
-      <ul className="list-disc font-[family-name:Arial,sans-serif] text-[0.8125rem] leading-[1rem] text-body-text">
+      <ul className="list-disc font-[Arial,sans-serif] text-[0.8125rem] leading-4 text-body-text">
         <li className="mb-0 ms-[1.21875rem]">
           Your disbursement is on hold for the following reasons:
         </li>
         <ul>
-          <li className="mb-0 ms-[2.4375rem]">
+          <li className="mb-0 ms-9.75">
             Excessive absences in ART 100
           </li>
-          <li className="ms-[2.4375rem]">
+          <li className="ms-9.75">
             Additional proof required to verify home address.
           </li>
         </ul>
@@ -33,11 +33,11 @@ function AlertBody() {
 
 function InfoBody() {
   return (
-    <div className="flex flex-1 shrink-0 flex-col gap-[0.625rem] px-[0.875rem]">
-      <p className="font-[family-name:Arial,sans-serif] text-[0.875rem] font-bold leading-normal text-[#2d3748]">
+    <div className="flex flex-1 shrink-0 flex-col gap-2.5 px-3.5">
+      <p className="font-[Arial,sans-serif] text-[0.875rem] font-bold leading-normal text-[#2d3748]">
         Details:
       </p>
-      <ul className="list-disc font-[family-name:Arial,sans-serif] text-[0.8125rem] leading-[1rem] text-body-text">
+      <ul className="list-disc font-[Arial,sans-serif] text-[0.8125rem] leading-4 text-body-text">
         <li className="mb-0 ms-[1.21875rem]">
           Your next scholarship payment is $<strong>2,500</strong> and will be
           deposited automatically on Feb 15th.

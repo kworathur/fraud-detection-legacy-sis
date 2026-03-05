@@ -55,17 +55,17 @@ export function TableHeader({
   showCheckbox?: boolean;
 }>) {
   return (
-    <div className="flex h-[3.0625rem] items-center gap-[0.25rem] border-b border-[#d1d5db] px-[0.875rem]">
+    <div className="flex h-12.25 items-center gap-1 border-b border-[#d1d5db] px-3.5">
       {showCheckbox && (
-        <div className="h-[0.9375rem] w-[0.9375rem] shrink-0 rounded-[0.25rem] border-2 border-[#6b7280] bg-transparent" />
+        <div className="h-3.75 w-3.75 shrink-0 rounded-sm border-2 border-[#6b7280] bg-transparent" />
       )}
       {columns.map((col) => (
         <div
           key={col.key}
-          className="flex items-center gap-[0.25rem]"
+          className="flex items-center gap-1"
           style={{ width: col.width }}
         >
-          <span className="font-[family-name:Arial,sans-serif] text-[0.625rem] font-bold text-black">
+          <span className="font-[Arial,sans-serif] text-[0.625rem] font-bold text-black">
             {col.label}
           </span>
           {col.sortable && (
@@ -92,9 +92,9 @@ export function TableRow({
   showCheckbox?: boolean;
 }>) {
   return (
-    <div className="flex h-[3.0625rem] items-center gap-[0.25rem] border-b border-[#d1d5db] px-[0.875rem]">
+    <div className="flex h-12.25 items-center gap-1 border-b border-[#d1d5db] px-3.5">
       {showCheckbox && (
-        <div className="h-[0.9375rem] w-[0.9375rem] shrink-0 rounded-[0.25rem] border-2 border-[#6b7280] bg-transparent" />
+        <div className="h-3.75 w-3.75 shrink-0 rounded-sm border-2 border-[#6b7280] bg-transparent" />
       )}
       {columns.map((col) => (
         <div
@@ -103,10 +103,10 @@ export function TableRow({
           style={{ width: col.width }}
         >
           {col.key === "pipeline" || col.key === "name" ? (
-            <div className="px-[1.6875rem]">
+            <div className="px-6.75">
               <a
                 href="#"
-                className="font-[family-name:Arial,sans-serif] text-[0.625rem] font-bold text-[#0ea5e9] underline"
+                className="font-[Arial,sans-serif] text-[0.625rem] font-bold text-[#0ea5e9] underline"
               >
                 {String(row[col.key] ?? "")}
               </a>
@@ -133,12 +133,16 @@ export function TableRow({
                 />
               </button>
             </div>
+          ) : col.key === "filters" ? (
+            <span className="font-[Inconsolata,monospace] text-[0.625rem] text-black">
+              {String(row[col.key] ?? "")}
+            </span>
           ) : col.key === "lastUpdated" ? (
-            <span className="font-[family-name:Arial,sans-serif] text-[0.625rem] text-[#4b5563]">
+            <span className="font-[Arial,sans-serif] text-[0.625rem] text-[#4b5563]">
               {String(row[col.key] ?? "")}
             </span>
           ) : (
-            <span className="font-[family-name:Arial,sans-serif] text-[0.625rem] text-black">
+            <span className="font-[Arial,sans-serif] text-[0.625rem] text-black">
               {String(row[col.key] ?? "")}
             </span>
           )}
@@ -158,17 +162,17 @@ export function TablePaginationBar({
   onPerPageChange?: (perPage: number) => void;
 }>) {
   return (
-    <div className="flex items-center justify-between px-[0.875rem] py-[0.5rem]">
-      <div className="flex items-end gap-[1.1875rem]">
-        <span className="font-[family-name:Arial,sans-serif] text-[0.625rem] font-bold text-[#525252]">
+    <div className="flex items-center justify-between px-3.5 py-2">
+      <div className="flex items-end gap-4.75">
+        <span className="font-[Arial,sans-serif] text-[0.625rem] font-bold text-[#525252]">
           Per page:
         </span>
         <button
           type="button"
           onClick={() => onPerPageChange?.(pagination.perPage)}
-          className="flex items-center gap-[0.125rem]"
+          className="flex items-center gap-0.5"
         >
-          <span className="font-[family-name:Arial,sans-serif] text-[0.625rem] font-bold text-[#525252]">
+          <span className="font-[Arial,sans-serif] text-[0.625rem] font-bold text-[#525252]">
             {pagination.perPage}
           </span>
           <Image
@@ -178,11 +182,11 @@ export function TablePaginationBar({
             height={16}
           />
         </button>
-        <span className="font-[family-name:Arial,sans-serif] text-[0.625rem] font-bold text-[#525252]">
+        <span className="font-[Arial,sans-serif] text-[0.625rem] font-bold text-[#525252]">
           Total results: {pagination.totalResults}
         </span>
       </div>
-      <div className="flex items-center gap-[2.375rem]">
+      <div className="flex items-center gap-9.5">
         <button
           type="button"
           onClick={() => onPageChange?.(1)}
@@ -204,16 +208,16 @@ export function TablePaginationBar({
             height={20}
           />
         </button>
-        <div className="flex items-center gap-[0.3125rem]">
-          <span className="font-[family-name:Arial,sans-serif] text-[0.625rem] font-bold text-[#4b5563]">
+        <div className="flex items-center gap-1.25">
+          <span className="font-[Arial,sans-serif] text-[0.625rem] font-bold text-[#4b5563]">
             Page
           </span>
-          <div className="flex h-[1.1875rem] w-[1.875rem] items-center justify-center rounded-[0.25rem] border border-[#a3a3a3]">
-            <span className="font-[family-name:Arial,sans-serif] text-[0.625rem] font-bold text-[#525252]">
+          <div className="flex h-4.75 w-7.5 items-center justify-center rounded-sm border border-[#a3a3a3]">
+            <span className="font-[Arial,sans-serif] text-[0.625rem] font-bold text-[#525252]">
               {pagination.currentPage}
             </span>
           </div>
-          <span className="font-[family-name:Arial,sans-serif] text-[0.625rem] font-bold text-[#404040]">
+          <span className="font-[Arial,sans-serif] text-[0.625rem] font-bold text-[#404040]">
             of {pagination.totalPages}
           </span>
         </div>
@@ -229,8 +233,8 @@ export function TablePaginationBar({
           <Image
             src="/images/chevron-right.svg"
             alt=""
-            width={16}
-            height={16}
+            width={20}
+            height={20}
           />
         </button>
         <button
@@ -266,16 +270,24 @@ export default function Table({
   onPerPageChange?: (perPage: number) => void;
 }>) {
   return (
-    <div className="flex w-full flex-col gap-[0.25rem]">
+    <div className="flex w-full flex-col gap-1">
       <TableHeader columns={columns} showCheckbox={showCheckbox} />
-      {rows.map((row) => (
-        <TableRow
-          key={row.id}
-          row={row}
-          columns={columns}
-          showCheckbox={showCheckbox}
-        />
-      ))}
+      {rows.length === 0 ? (
+        <div className="flex h-12.25 items-center justify-center border-b border-[#d1d5db] px-3.5">
+          <span className="font-[Arial,sans-serif] text-[0.625rem] text-[#6b7280]">
+            No rows to display
+          </span>
+        </div>
+      ) : (
+        rows.map((row) => (
+          <TableRow
+            key={row.id}
+            row={row}
+            columns={columns}
+            showCheckbox={showCheckbox}
+          />
+        ))
+      )}
       {pagination && (
         <TablePaginationBar
           pagination={pagination}

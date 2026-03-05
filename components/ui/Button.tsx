@@ -3,11 +3,15 @@ export default function Button({
   href,
   variant = "primary",
   className = "",
+  onClick,
+  disabled,
 }: Readonly<{
   children: React.ReactNode;
   href?: string;
   variant?: "primary" | "secondary" | "warning";
   className?: string;
+  onClick?: () => void;
+  disabled?: boolean;
 }>) {
   const variantClasses = {
     primary:
@@ -32,7 +36,7 @@ export default function Button({
   }
 
   return (
-    <button type="button" className={classes}>
+    <button type="button" className={classes} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );

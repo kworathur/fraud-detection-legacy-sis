@@ -92,9 +92,9 @@ export default function AdvisingMeetingsPage() {
             href: "#",
           }))}
         />
-        <div className="flex flex-1 flex-col px-[1.5rem] py-[1rem]">
-          <div className="mb-[1rem] flex items-center justify-between">
-            <div className="flex gap-[0.5rem]">
+        <div className="flex flex-1 flex-col px-6 py-4">
+          <div className="mb-4 flex items-center justify-between">
+            <div className="flex gap-2">
               <button
                 type="button"
                 onClick={() => setView("upcoming")}
@@ -124,17 +124,17 @@ export default function AdvisingMeetingsPage() {
           </div>
 
           {error && (
-            <p className="mb-2 font-[family-name:Arial,sans-serif] text-sm text-alert-red">
+            <p className="mb-2 font-[Arial,sans-serif] text-sm text-alert-red">
               {error}
             </p>
           )}
 
           {loading ? (
-            <p className="font-[family-name:Arial,sans-serif] text-[0.875rem] text-[#4b5563]">
+            <p className="font-[Arial,sans-serif] text-[0.875rem] text-[#4b5563]">
               Loading meetings...
             </p>
           ) : rows.length === 0 ? (
-            <p className="font-[family-name:Arial,sans-serif] text-[0.875rem] text-[#4b5563]">
+            <p className="font-[Arial,sans-serif] text-[0.875rem] text-[#4b5563]">
               No {view} meetings found.
             </p>
           ) : (

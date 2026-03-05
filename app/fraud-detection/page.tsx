@@ -85,10 +85,10 @@ export default function FraudDetectionPage() {
     <div className="min-h-screen w-full bg-white">
       <SmallNav />
       <main className="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-8">
-        <h1 className="font-[family-name:Arial,sans-serif] text-3xl font-bold text-black">
+        <h1 className="font-[Arial,sans-serif] text-3xl font-bold text-black">
           Fraud Detection
         </h1>
-        <p className="font-[family-name:Arial,sans-serif] text-sm text-[#404040]">
+        <p className="font-[Arial,sans-serif] text-sm text-[#404040]">
           Start and monitor address-liveness checks.
         </p>
 
@@ -135,7 +135,7 @@ export default function FraudDetectionPage() {
         </div>
 
         {error && (
-          <p className="font-[family-name:Arial,sans-serif] text-sm text-alert-red">
+          <p className="font-[Arial,sans-serif] text-sm text-alert-red">
             {error}
           </p>
         )}

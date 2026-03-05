@@ -15,11 +15,11 @@ export default function ClassesCard({
         <CardHeader
           title={title}
           actions={
-            <div className="flex items-center gap-[0.25rem]">
+            <div className="flex items-center gap-1">
               <Image src="/images/lock-icon.svg" alt="" width={11} height={12} />
               <button
                 type="button"
-                className="flex h-[1.5rem] w-[1.5rem] items-center justify-center"
+                className="flex h-6 w-6 items-center justify-center"
               >
                 <Image src="/images/more-vert.svg" alt="" width={3} height={11} />
               </button>
@@ -29,8 +29,8 @@ export default function ClassesCard({
       }
       contentClassName="gap-[0.625rem]"
     >
-      <div className="relative flex-1 px-[0.875rem]">
-        <div className="flex items-center pt-[0.125rem]">
+      <div className="relative flex-1 px-3.5">
+        <div className="flex items-center pt-0.5">
           <TermSelector defaultTerm={term} />
           <div className="ml-auto">
             <Image
@@ -42,14 +42,14 @@ export default function ClassesCard({
           </div>
         </div>
         {courses.map((course) => (
-          <div key={course.code} className="mt-[0.75rem]">
+          <div key={course.code} className="mt-3">
             <a
               href="#"
               className="font-sans text-[0.8125rem] font-semibold tracking-[-0.008125rem] text-link-blue underline"
             >
               {course.code} {course.title}
             </a>
-            <p className="mt-[0.25rem] font-sans text-[0.75rem] font-semibold tracking-[-0.0075rem] text-black">
+            <p className="mt-1 font-sans text-[0.75rem] font-semibold tracking-[-0.0075rem] text-black">
               {course.modality}
             </p>
             <p className="font-sans text-[0.6875rem] font-semibold tracking-[-0.006875rem] text-[#8b8b8b]">

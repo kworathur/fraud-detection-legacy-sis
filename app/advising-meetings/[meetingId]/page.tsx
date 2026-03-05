@@ -24,11 +24,11 @@ function DetailField({
   value,
 }: Readonly<{ label: string; value: string }>) {
   return (
-    <div className="flex flex-col gap-[0.25rem]">
-      <span className="font-[family-name:Arial,sans-serif] text-[0.625rem] font-bold text-[#6b7280]">
+    <div className="flex flex-col gap-1">
+      <span className="font-[Arial,sans-serif] text-[0.625rem] font-bold text-[#6b7280]">
         {label}
       </span>
-      <span className="font-[family-name:Arial,sans-serif] text-[0.8125rem] text-black">
+      <span className="font-[Arial,sans-serif] text-[0.8125rem] text-black">
         {value}
       </span>
     </div>
@@ -45,7 +45,7 @@ function StatusBadge({ status }: Readonly<{ status: string }>) {
           : "border-[#6b7280] text-[#6b7280]"
       }`}
     >
-      <span className="font-[family-name:Arial,sans-serif] text-[0.625rem] font-bold">
+      <span className="font-[Arial,sans-serif] text-[0.625rem] font-bold">
         {isScheduled ? "SCHEDULED" : status}
       </span>
     </div>
@@ -118,42 +118,42 @@ export default function MeetingDetailPage() {
       <FormHeader title="Advising Meetings" />
       <div className="flex flex-1 items-stretch">
         <NavigationSubmenu items={submenuItems} />
-        <div className="flex flex-1 flex-col px-[1.5rem] py-[1rem]">
-          <div className="mb-[1rem] flex items-center gap-[0.5rem]">
+        <div className="flex flex-1 flex-col px-6 py-4">
+          <div className="mb-4 flex items-center gap-2">
             <Link
               href="/advising-meetings"
               className="flex items-center justify-center"
             >
               <Image
-                src="/images/chevron-left.svg"
+                src="/images/arrow-back.svg"
                 alt="Back"
-                width={20}
-                height={20}
+                width={16}
+                height={16}
               />
             </Link>
-            <h1 className="font-[family-name:Arial,sans-serif] text-[1rem] font-bold text-black">
+            <h1 className="font-[Arial,sans-serif] text-[1rem] font-bold text-black">
               Appointment Details
             </h1>
           </div>
 
           {error && (
-            <p className="mb-2 font-[family-name:Arial,sans-serif] text-sm text-alert-red">
+            <p className="mb-2 font-[Arial,sans-serif] text-sm text-alert-red">
               {error}
             </p>
           )}
 
           {loading ? (
-            <p className="font-[family-name:Arial,sans-serif] text-[0.875rem] text-[#4b5563]">
+            <p className="font-[Arial,sans-serif] text-[0.875rem] text-[#4b5563]">
               Loading meeting details...
             </p>
           ) : meeting ? (
-            <div className="flex gap-[1.5rem]">
+            <div className="flex gap-6">
               {/* Left panel - Details */}
-              <div className="flex w-[22rem] flex-col gap-[1rem] rounded-[0.25rem] bg-white p-[1.25rem] shadow-[0_0_0.5rem_rgba(0,0,0,0.1)]">
-                <h2 className="font-[family-name:Arial,sans-serif] text-[0.875rem] font-bold text-black">
+              <div className="flex w-88 flex-col gap-4 rounded-sm bg-white p-5 shadow-[0_0_0.5rem_rgba(0,0,0,0.1)]">
+                <h2 className="font-[Arial,sans-serif] text-[0.875rem] font-bold text-black">
                   Details
                 </h2>
-                <div className="flex flex-col gap-[0.75rem]">
+                <div className="flex flex-col gap-3">
                   <DetailField
                     label="Date"
                     value={dt?.toLocaleDateString() ?? ""}
@@ -187,8 +187,8 @@ export default function MeetingDetailPage() {
                     label="Notes"
                     value={meeting.bookingDescription ?? "—"}
                   />
-                  <div className="flex flex-col gap-[0.25rem]">
-                    <span className="font-[family-name:Arial,sans-serif] text-[0.625rem] font-bold text-[#6b7280]">
+                  <div className="flex flex-col gap-1">
+                    <span className="font-[Arial,sans-serif] text-[0.625rem] font-bold text-[#6b7280]">
                       Outcome
                     </span>
                     <StatusBadge status={meeting.status} />
@@ -197,7 +197,7 @@ export default function MeetingDetailPage() {
               </div>
 
               {/* Right panel - Attendees / Resolution */}
-              <div className="flex flex-1 flex-col rounded-[0.25rem] bg-white shadow-[0_0_0.5rem_rgba(0,0,0,0.1)]">
+              <div className="flex flex-1 flex-col rounded-sm bg-white shadow-[0_0_0.5rem_rgba(0,0,0,0.1)]">
                 <div className="flex border-b border-[#d1d5db]">
                   <button
                     type="button"
@@ -223,10 +223,10 @@ export default function MeetingDetailPage() {
                   </button>
                 </div>
 
-                <div className="p-[1rem]">
+                <div className="p-4">
                   {activeTab === "attendees" ? (
                     <div className="flex flex-col">
-                      <h3 className="mb-[0.5rem] font-[family-name:Arial,sans-serif] text-[0.8125rem] font-bold text-black">
+                      <h3 className="mb-2 font-[Arial,sans-serif] text-[0.8125rem] font-bold text-black">
                         Appointment Attendees
                       </h3>
                       <TableHeader
@@ -248,7 +248,7 @@ export default function MeetingDetailPage() {
                       />
                     </div>
                   ) : (
-                    <p className="font-[family-name:Arial,sans-serif] text-[0.8125rem] text-[#4b5563]">
+                    <p className="font-[Arial,sans-serif] text-[0.8125rem] text-[#4b5563]">
                       No resolution notes yet.
                     </p>
                   )}

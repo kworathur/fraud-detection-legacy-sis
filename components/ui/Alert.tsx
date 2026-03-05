@@ -35,22 +35,22 @@ export default function Alert({
   return (
     <div className={`flex w-full flex-col items-start ${v.bg} ${className}`}>
       <div className={`h-[0.3125rem] w-full ${v.bar}`} />
-      <div className="flex h-[2.6875rem] w-full items-center justify-center gap-[0.5rem] p-[0.25rem]">
+      <div className="flex h-10.75 w-full items-center justify-center gap-2 p-1">
         {variant === "warning" && (
-          <div className="relative h-[1.25rem] w-[1.25rem] shrink-0">
+          <div className="relative h-5 w-5 shrink-0">
             <Image
               src="/images/warning-icon.svg"
               alt=""
               width={20}
               height={20}
             />
-            <span className="absolute inset-0 flex items-center justify-center font-[family-name:Arial,sans-serif] text-[1rem] font-bold text-white">
+            <span className="absolute inset-0 flex items-center justify-center font-[Arial,sans-serif] text-[1rem] font-bold text-white">
               !
             </span>
           </div>
         )}
         {variant === "success" && (
-          <div className="relative h-[1.25rem] w-[1.25rem] shrink-0">
+          <div className="relative h-5 w-5 shrink-0">
             <Image
               src="/images/check-circle.svg"
               alt=""
@@ -60,7 +60,7 @@ export default function Alert({
           </div>
         )}
         {variant === "info" && (
-          <div className="relative h-[1.25rem] w-[1.25rem] shrink-0">
+          <div className="relative h-5 w-5 shrink-0">
             <Image
               src="/images/info-circle.svg"
               alt=""

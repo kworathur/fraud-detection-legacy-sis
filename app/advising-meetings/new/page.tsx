@@ -23,12 +23,12 @@ function DisabledField({
   value,
 }: Readonly<{ label: string; value: string }>) {
   return (
-    <div className="flex w-[14.0625rem] flex-col items-start gap-[0.5rem]">
-      <label className="font-[family-name:Arial,sans-serif] text-[0.75rem] leading-none text-black">
+    <div className="flex w-56.25 flex-col items-start gap-2">
+      <label className="font-[Arial,sans-serif] text-[0.75rem] leading-none text-black">
         {label}
       </label>
-      <div className="flex h-[1.75rem] w-full items-center bg-[#f3f4f6] px-[0.625rem]">
-        <span className="font-[family-name:Arial,sans-serif] text-[0.75rem] text-[#4b5563]">
+      <div className="flex h-7 w-full items-center bg-[#f3f4f6] px-2.5">
+        <span className="font-[Arial,sans-serif] text-[0.75rem] text-[#4b5563]">
           {value}
         </span>
       </div>
@@ -50,14 +50,14 @@ function SelectField({
   placeholder: string;
 }>) {
   return (
-    <div className="flex w-[14.0625rem] flex-col gap-[0.5rem]">
-      <label className="font-[family-name:Arial,sans-serif] text-[0.75rem] leading-none text-black">
+    <div className="flex w-56.25 flex-col gap-2">
+      <label className="font-[Arial,sans-serif] text-[0.75rem] leading-none text-black">
         {label}
       </label>
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="h-[1.75rem] w-full border border-[#d1d5db] bg-white px-[0.625rem] py-[0.375rem] font-[family-name:Arial,sans-serif] text-[0.75rem] text-black"
+        className="h-7 w-full border border-[#d1d5db] bg-white px-2.5 py-1.5 font-[Arial,sans-serif] text-[0.75rem] text-black"
       >
         <option value="">{placeholder}</option>
         {options.map((option) => (
@@ -82,15 +82,15 @@ function TextField({
   placeholder: string;
 }>) {
   return (
-    <div className="flex w-[14.0625rem] flex-col gap-[0.5rem]">
-      <label className="font-[family-name:Arial,sans-serif] text-[0.75rem] leading-none text-black">
+    <div className="flex w-56.25 flex-col gap-2">
+      <label className="font-[Arial,sans-serif] text-[0.75rem] leading-none text-black">
         {label}
       </label>
       <input
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
-        className="h-[1.75rem] w-full border border-[#d1d5db] bg-white px-[0.625rem] py-[0.375rem] font-[family-name:Arial,sans-serif] text-[0.75rem] text-black"
+        className="h-7 w-full border border-[#d1d5db] bg-white px-2.5 py-1.5 font-[Arial,sans-serif] text-[0.75rem] text-black"
       />
     </div>
   );
@@ -216,17 +216,17 @@ export default function NewMeetingPage() {
       <FormHeader title="Advising Meeting Scheduling Form" />
       <div className="flex flex-1 items-stretch">
         <FormSteps steps={steps} />
-        <div className="flex flex-1 flex-col items-center px-[3.375rem] py-[0.625rem]">
-          <div className="flex w-[42.875rem] flex-col gap-[0.8125rem]">
+        <div className="flex flex-1 flex-col items-center px-13.5 py-2.5">
+          <div className="flex w-171.5 flex-col gap-3.25">
             <div className="flex flex-col">
-              <div className="h-[4.625rem] w-full bg-gt-gold" />
-              <div className="flex h-[2.4375rem] items-center justify-center bg-[#4ec8ff] p-[0.625rem]">
-                <span className="font-[family-name:Arial,sans-serif] text-[1.5rem] text-black">
+              <div className="h-18.5 w-full bg-gt-gold" />
+              <div className="flex h-9.75 items-center justify-center bg-[#4ec8ff] p-2.5">
+                <span className="font-[Arial,sans-serif] text-[1.5rem] text-black">
                   Advising Meeting Scheduling Form
                 </span>
               </div>
-              <div className="flex h-[9.0625rem] items-center py-[0.625rem]">
-                <p className="font-[family-name:Arial,sans-serif] text-[1.25rem] leading-normal text-black">
+              <div className="flex h-36.25 items-center py-2.5">
+                <p className="font-[Arial,sans-serif] text-[1.25rem] leading-normal text-black">
                   Use this form to schedule a virtual zoom meeting with your
                   advisor
                   {advisorName
@@ -241,7 +241,7 @@ export default function NewMeetingPage() {
               </div>
             </div>
 
-            <div className="flex w-full flex-col gap-[1rem]">
+            <div className="flex w-full flex-col gap-4">
               <DisabledField label="* Your Student ID" value="From session" />
               <DisabledField label="* Your Name" value="From session" />
               <DisabledField label="* Email Address" value="From session" />
@@ -269,7 +269,7 @@ export default function NewMeetingPage() {
                 type="button"
                 onClick={bookSlot}
                 disabled={!selectedSlotId || loading}
-                className="w-fit rounded bg-link-blue px-4 py-2 font-[family-name:Arial,sans-serif] text-[0.75rem] font-bold text-white disabled:opacity-50"
+                className="w-fit rounded bg-link-blue px-4 py-2 font-[Arial,sans-serif] text-[0.75rem] font-bold text-white disabled:opacity-50"
               >
                 {loading ? "Submitting..." : "Book Meeting"}
               </button>
@@ -277,13 +277,13 @@ export default function NewMeetingPage() {
           </div>
 
           {error && (
-            <p className="mt-[0.5rem] font-[family-name:Arial,sans-serif] text-sm text-alert-red">
+            <p className="mt-2 font-[Arial,sans-serif] text-sm text-alert-red">
               {error}
             </p>
           )}
 
           {message && (
-            <p className="mt-[0.5rem] text-sm text-[#166534]">{message}</p>
+            <p className="mt-2 text-sm text-[#166534]">{message}</p>
           )}
         </div>
       </div>

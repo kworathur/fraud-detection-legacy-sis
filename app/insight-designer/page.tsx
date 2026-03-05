@@ -148,7 +148,7 @@ export default function InsightDesignerPage() {
     <div className="min-h-screen w-full bg-white">
       <SmallNav />
       <main className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-8">
-        <h1 className="font-[family-name:Arial,sans-serif] text-3xl font-bold text-black">
+        <h1 className="font-[Arial,sans-serif] text-3xl font-bold text-black">
           Insight Designer
         </h1>
 
