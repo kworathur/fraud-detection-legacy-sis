@@ -14,7 +14,7 @@ export default function NavigationSubmenu({
   items: SubmenuItem[];
 }>) {
   return (
-    <div className="flex w-[15.625rem] shrink-0 flex-col border-r border-[#d1d5db] bg-[#f5f5f5]">
+    <div className="flex w-[15.625rem] shrink-0 flex-col self-stretch border-r border-[#d4d4d4] bg-[#f5f5f5]">
       <div className="flex flex-col py-[0.75rem]">
         {items.map((item) => (
           <Link

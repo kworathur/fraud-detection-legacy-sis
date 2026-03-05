@@ -102,7 +102,7 @@ export function TableRow({
           className="flex items-center"
           style={{ width: col.width }}
         >
-          {col.key === "pipeline" ? (
+          {col.key === "pipeline" || col.key === "name" ? (
             <div className="px-[1.6875rem]">
               <a
                 href="#"
