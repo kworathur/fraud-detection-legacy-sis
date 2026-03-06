@@ -29,8 +29,8 @@ function DisabledField({
             <label className="font-[Arial,sans-serif] text-[0.75rem] leading-none text-black">
                 {label}
             </label>
-            <div className="flex h-7 w-full items-center bg-[#f3f4f6] px-2.5">
-                <span className="font-[Arial,sans-serif] text-[0.75rem] text-[#4b5563]">
+            <div className="flex h-7 w-full items-center bg-[#f3f4f6] px-2.5 ">
+                <span className="font-[Arial,sans-serif] text-[0.75rem] text-[#4b5563] text-nowrap overflow-auto ">
                     {value}
                 </span>
             </div>
@@ -411,8 +411,10 @@ export default function NewMeetingPage() {
                                 <p className="font-[Arial,sans-serif] text-[1.25rem] leading-normal text-black">
                                     Use this form to schedule a virtual zoom
                                     meeting with your advisor
-                                    {advisorName ? `, ${advisorName}` : ''}.
-                                    Select a date and time from the dropdowns
+                                    {advisorName
+                                        ? `, ${advisorName.split(' ').at(0)}`
+                                        : ''}
+                                    . Select a date and time from the dropdowns
                                     below to book a meeting.
                                 </p>
                             </div>
