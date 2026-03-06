@@ -132,3 +132,10 @@ export interface AdvisingInsight {
 export interface AdvisingInsightsResponse {
   data: AdvisingInsight[];
 }
+
+export interface InsightExecuteResponse {
+  data: Record<string, unknown>[];
+  insightId: string;
+  studentId: number;
+  message?: string;
+}

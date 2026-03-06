@@ -7,6 +7,7 @@ import ApplicationShortcutsSheet, {
     type AppShortcut,
 } from '@/components/ui/ApplicationShortcutsSheet';
 import Link from 'next/link';
+import { useRole } from '@/lib/useRole';
 
 const SHORTCUTS_STORAGE_KEY = 'app-shortcuts.v1';
 
@@ -74,6 +75,14 @@ const BASE_APP_SHORTCUTS: AppShortcut[] = [
     },
 ];
 
+const ADVISING_HOME_SHORTCUT: AppShortcut = {
+    id: 'advising-home',
+    label: 'Advising Home',
+    icon: '/images/info-icon.svg',
+    href: '/advising-home',
+    enabled: true,
+};
+
 const ADVISING_CONFIGURATION_SHORTCUT: AppShortcut = {
     id: 'advising-configuration',
     label: 'Advising Configuration',
@@ -82,10 +91,19 @@ const ADVISING_CONFIGURATION_SHORTCUT: AppShortcut = {
     enabled: true,
 };
 
-function getDefaultShortcuts(canConfigureAdvising: boolean): AppShortcut[] {
-    return canConfigureAdvising
-        ? [...BASE_APP_SHORTCUTS, ADVISING_CONFIGURATION_SHORTCUT]
-        : BASE_APP_SHORTCUTS;
+function getDefaultShortcuts({
+    isAdvisor,
+    isAdmin,
+}: {
+    isAdvisor: boolean;
+    isAdmin: boolean;
+}): AppShortcut[] {
+    const shortcuts = [...BASE_APP_SHORTCUTS];
+    // Advisors see advising home (their students, availability, meetings)
+    if (isAdvisor) shortcuts.push(ADVISING_HOME_SHORTCUT);
+    // Admins see advising configuration (insights, rules, playground)
+    if (isAdmin) shortcuts.push(ADVISING_CONFIGURATION_SHORTCUT);
+    return shortcuts;
 }
 
 function NavQuickActions({
@@ -242,7 +260,7 @@ function ProfileOverlay({
                             height={12}
                             className="shrink-0"
                         />
-                        <span className="font-[Arial,sans-serif] text-[0.75rem] font-bold text-[#404040]">
+                        <span className="font-[Arial,sans-serif] text-sm font-bold text-[#404040]">
                             Log Out
                         </span>
                     </button>
@@ -338,35 +356,6 @@ function useEditableShortcuts(defaultShortcuts: AppShortcut[]) {
     };
 }
 
-function useRole() {
-    const [groups, setGroups] = useState<string[]>([]);
-    const [loaded, setLoaded] = useState(false);
-
-    useEffect(() => {
-        const loadRole = async () => {
-            try {
-                const response = await fetch('/api/me/role', {
-                    cache: 'no-store',
-                });
-                const data = (await response.json()) as { groups?: string[] };
-                setGroups(Array.isArray(data.groups) ? data.groups : []);
-            } catch {
-                setGroups([]);
-            } finally {
-                setLoaded(true);
-            }
-        };
-
-        void loadRole();
-    }, []);
-
-    return {
-        loaded,
-        canConfigureAdvising:
-            groups.includes('advising-admin') ||
-            groups.includes('advising-advisor'),
-    };
-}
 
 function useOverlayEscape(
     isShortcutsOpen: boolean,
@@ -400,11 +389,11 @@ function useOverlayEscape(
 export default function Navbar() {
     const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
-    const { loaded, canConfigureAdvising } = useRole();
+    const { loaded, isAdvisor, isAdmin } = useRole();
 
     const defaultShortcuts = useMemo(
-        () => getDefaultShortcuts(canConfigureAdvising),
-        [canConfigureAdvising]
+        () => getDefaultShortcuts({ isAdvisor, isAdmin }),
+        [isAdvisor, isAdmin]
     );
 
     const {
@@ -478,11 +467,11 @@ export default function Navbar() {
 export function SmallNav() {
     const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
-    const { loaded, canConfigureAdvising } = useRole();
+    const { loaded, isAdvisor, isAdmin } = useRole();
 
     const defaultShortcuts = useMemo(
-        () => getDefaultShortcuts(canConfigureAdvising),
-        [canConfigureAdvising]
+        () => getDefaultShortcuts({ isAdvisor, isAdmin }),
+        [isAdvisor, isAdmin]
     );
 
     const {
@@ -502,7 +491,7 @@ export function SmallNav() {
 
     return (
         <>
-            <nav className="flex h-fit items-center justify-between bg-gt-gold px-4.25 py-4">
+            <nav className="flex h-fit items-center justify-between bg-gt-gold px-4.25 py-2">
                 <div className="flex items-center gap-6.75">
                     <button
                         type="button"

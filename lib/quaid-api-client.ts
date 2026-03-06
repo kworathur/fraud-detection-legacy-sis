@@ -35,6 +35,16 @@ export async function quaidApiRequest<T>(
 
   if (!response.ok) {
     const payload = (data ?? {}) as ErrorPayload;
+
+    // Detect session timeout and notify the SessionTimeoutModal
+    if (
+      response.status === 401 &&
+      typeof window !== "undefined" &&
+      (payload as { code?: string }).code === "SESSION_TIMEOUT"
+    ) {
+      window.dispatchEvent(new Event("session-timeout"));
+    }
+
     const message =
       payload?.error?.message ??
       payload?.message ??

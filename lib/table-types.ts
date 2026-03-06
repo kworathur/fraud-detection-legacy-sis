@@ -3,6 +3,7 @@ export interface TableColumn {
   label: string;
   sortable?: boolean;
   width?: string;
+  align?: "left" | "center" | "right";
 }
 
 export interface TableRowData {

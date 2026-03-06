@@ -3,9 +3,6 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { SmallNav } from "@/components/layout/Navbar";
-import FormHeader from "@/components/ui/FormHeader";
-import NavigationSubmenu from "@/components/ui/NavigationSubmenu";
 import Table from "@/components/ui/Table";
 import Button from "@/components/ui/Button";
 import { quaidApiRequest } from "@/lib/quaid-api-client";
@@ -20,29 +17,6 @@ import type {
   TableRowData,
   TablePagination,
 } from "@/lib/table-types";
-
-const SUBMENU_ITEMS = [
-  {
-    label: "Assign Advisors to Students",
-    href: "/advising-configuration",
-    active: false,
-  },
-  {
-    label: "Pause/Unpause Virtual Advising",
-    href: "/advising-configuration/virtual-advising",
-    active: false,
-  },
-  {
-    label: "Customize Advising Insights",
-    href: "/advising-configuration/insights",
-    active: true,
-  },
-  {
-    label: "Advising Insight Playground",
-    href: "/advising-configuration/playground",
-    active: false,
-  },
-];
 
 const TABLE_COLUMNS: TableColumn[] = [
   { key: "name", label: "Name", width: "17.5rem" },
@@ -111,7 +85,7 @@ export default function AdvisingInsightsPage() {
 
   const loadInsights = useCallback(async () => {
     const response = await quaidApiRequest<AdvisingInsightsResponse>(
-      "advising/admin/insights",
+      "advising/insights",
     );
     setInsights(response.data);
   }, []);
@@ -166,68 +140,59 @@ export default function AdvisingInsightsPage() {
   };
 
   return (
-    <div className="flex h-screen w-full flex-col bg-white">
-      <SmallNav />
-      <FormHeader title="Advising Configuration" />
+    <div className="flex flex-1 flex-col overflow-auto p-2">
+      {error && (
+        <p className="mb-2 font-[Arial,sans-serif] text-[0.75rem] text-alert-red">
+          {error}
+        </p>
+      )}
 
-      <div className="flex flex-1 overflow-hidden">
-        <NavigationSubmenu items={SUBMENU_ITEMS} />
+      <div className="flex flex-col gap-2.5 rounded-sm bg-white p-2.5 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]">
+        <h2 className="font-[Arial,sans-serif] text-[0.875rem] font-bold text-black">
+          Advising Insights Designer
+        </h2>
+        <p className="font-[Arial,sans-serif] text-[0.75rem] text-[#404040]">
+          This table lists the advising insights you&#39;ve created. Each
+          advising insight is bound to a pre-defined SQL query that is executed
+          to conditionally display a template message in a student&#39;s
+          advising card.
+        </p>
 
-        <div className="flex flex-1 flex-col overflow-auto p-2">
-          {error && (
-            <p className="mb-2 font-[Arial,sans-serif] text-[0.75rem] text-alert-red">
-              {error}
-            </p>
+        <div className="flex items-start justify-between">
+          {successMessage ? (
+            <SuccessToast
+              message={successMessage}
+              onDismiss={() => setSuccessMessage("")}
+            />
+          ) : (
+            <div />
           )}
-
-          <div className="flex flex-col gap-2.5 rounded-sm bg-white p-2.5 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]">
-            <h2 className="font-[Arial,sans-serif] text-[0.875rem] font-bold text-black">
-              Advising Insights Designer
-            </h2>
-            <p className="font-[Arial,sans-serif] text-[0.75rem] text-[#404040]">
-              This table lists the advising insights you&#39;ve created. Each
-              advising insight is bound to a pre-defined SQL query that is
-              executed to conditionally display a template message in a
-              student&#39;s advising card.
-            </p>
-
-            <div className="flex items-start justify-between">
-              {successMessage ? (
-                <SuccessToast
-                  message={successMessage}
-                  onDismiss={() => setSuccessMessage("")}
-                />
-              ) : (
-                <div />
-              )}
-              <Button
-                variant="secondary"
-                href="/advising-configuration/insights/new"
-              >
-                <Image
-                  src="/images/plus-icon.svg"
-                  alt=""
-                  width={16}
-                  height={16}
-                  className="mr-0.5"
-                />
-                ADD INSIGHT
-              </Button>
-            </div>
-
-            {loading ? (
-              <p className="py-4 text-center font-[Arial,sans-serif] text-[0.75rem] text-[#404040]">
-                Loading...
-              </p>
-            ) : (
-              <Table
-                columns={TABLE_COLUMNS}
-                rows={rows}
-                pagination={pagination}
-              />
-            )}
-          </div>
+          <Button
+            variant="secondary"
+            href="/advising-configuration/insights/new"
+          >
+            <Image
+              src="/images/plus-icon.svg"
+              alt=""
+              width={16}
+              height={16}
+              className="mr-0.5"
+            />
+            ADD INSIGHT
+          </Button>
         </div>
+
+        {loading ? (
+          <p className="py-4 text-center font-[Arial,sans-serif] text-[0.75rem] text-[#404040]">
+            Loading...
+          </p>
+        ) : (
+          <Table
+            columns={TABLE_COLUMNS}
+            rows={rows}
+            pagination={pagination}
+          />
+        )}
       </div>
     </div>
   );

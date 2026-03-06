@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Dropdown from "@/components/ui/Dropdown";
 
 export function FormFieldText({
   label,
@@ -73,28 +73,12 @@ export function FormFieldDropdown({
         {required && "* "}
         {label}
       </label>
-      <div className="relative">
-        <select
-          value={value}
-          onChange={(e) => onChange?.(e.target.value)}
-          className="h-7 w-full appearance-none border border-[#d1d5db] bg-white px-1.5 font-[Arial,sans-serif] text-[0.75rem] text-black outline-none focus:border-[#3182ce]"
-        >
-          <option value="">{placeholder}</option>
-          {options?.map((opt) => (
-            <option key={opt} value={opt}>
-              {opt}
-            </option>
-          ))}
-        </select>
-        <div className="pointer-events-none absolute left-1.5 top-1/2 -translate-y-1/2">
-          <Image
-            src="/images/chevron-down.svg"
-            alt=""
-            width={16}
-            height={16}
-          />
-        </div>
-      </div>
+      <Dropdown
+        value={value ?? ""}
+        onChange={(v) => onChange?.(v)}
+        options={(options ?? []).map((opt) => ({ value: opt, label: opt }))}
+        placeholder={placeholder}
+      />
     </div>
   );
 }

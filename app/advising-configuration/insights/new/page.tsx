@@ -4,38 +4,13 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { SmallNav } from "@/components/layout/Navbar";
-import FormHeader from "@/components/ui/FormHeader";
-import NavigationSubmenu from "@/components/ui/NavigationSubmenu";
 import Button from "@/components/ui/Button";
+import Dropdown from "@/components/ui/Dropdown";
 import { quaidApiRequest } from "@/lib/quaid-api-client";
 import type {
   AdvisorDirectoryEntry,
   AdvisorDirectoryResponse,
 } from "@/lib/quaid-api-types";
-
-const SUBMENU_ITEMS = [
-  {
-    label: "Assign Advisors to Students",
-    href: "/advising-configuration",
-    active: false,
-  },
-  {
-    label: "Pause/Unpause Virtual Advising",
-    href: "/advising-configuration/virtual-advising",
-    active: false,
-  },
-  {
-    label: "Customize Advising Insights",
-    href: "/advising-configuration/insights",
-    active: true,
-  },
-  {
-    label: "Advising Insight Playground",
-    href: "/advising-configuration/playground",
-    active: false,
-  },
-];
 
 const TEMPLATE_KEYS = [
   "CREDENTIALS_NEAR_COMPLETION",
@@ -43,12 +18,54 @@ const TEMPLATE_KEYS = [
   "SUGGESTED_COURSES",
 ];
 
+const SCHOLARSHIP_OPTIONS = ["ZELL_MILLER", "HOPE", "PELL"];
+
+const TEMPLATE_VARIABLES: Record<string, { vars: string[]; example: string }> = {
+  CREDENTIALS_NEAR_COMPLETION: {
+    vars: [
+      "student_name",
+      "program_name",
+      "program_code",
+      "completion_pct",
+    ],
+    example:
+      "Hi {{student_name}}, you have completed {{completion_pct}}% of the {{program_name}} ({{program_code}}) program!",
+  },
+  SCHOLARSHIP_ELIGIBILITY: {
+    vars: [
+      "student_name",
+      "scholarship_name",
+      "status",
+      "reason",
+      "rule_type",
+      "rule_operator",
+      "rule_value",
+    ],
+    example:
+      "Hi {{student_name}}, your {{scholarship_name}} scholarship status is {{status}}.",
+  },
+  SUGGESTED_COURSES: {
+    vars: [
+      "student_name",
+      "subject_code",
+      "course_number",
+      "course_name",
+      "credit_hours",
+      "description",
+    ],
+    example:
+      "Hi {{student_name}}, consider taking {{subject_code}} {{course_number}} – {{course_name}} ({{credit_hours}} credits).",
+  },
+};
+
 export default function NewInsightPage() {
   const router = useRouter();
   const [advisors, setAdvisors] = useState<AdvisorDirectoryEntry[]>([]);
   const [advisorId, setAdvisorId] = useState("");
   const [templateKey, setTemplateKey] = useState("");
-  const [triggerCondition, setTriggerCondition] = useState("");
+  const [thresholdPercentage, setThresholdPercentage] = useState("");
+  const [scholarshipName, setScholarshipName] = useState("");
+  const [department, setDepartment] = useState("");
   const [messageTemplate, setMessageTemplate] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -60,9 +77,7 @@ export default function NewInsightPage() {
       );
       setAdvisors(response.data);
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Failed to load advisors",
-      );
+      setError(err instanceof Error ? err.message : "Failed to load advisors");
     }
   }, []);
 
@@ -70,22 +85,33 @@ export default function NewInsightPage() {
     void loadAdvisors();
   }, [loadAdvisors]);
 
+  function buildParameters(): Record<string, unknown> {
+    switch (templateKey) {
+      case "CREDENTIALS_NEAR_COMPLETION":
+        return { threshold_percentage: Number(thresholdPercentage) };
+      case "SCHOLARSHIP_ELIGIBILITY":
+        return { scholarship_name: scholarshipName };
+      case "SUGGESTED_COURSES":
+        return department ? { department } : {};
+      default:
+        return {};
+    }
+  }
+
   async function handleCreate() {
     if (!templateKey) return;
 
     setSubmitting(true);
     setError("");
     try {
-      await quaidApiRequest("advising/admin/insights", {
+      await quaidApiRequest("advising/insights", {
         method: "POST",
         body: JSON.stringify({
           advisorId: advisorId || undefined,
           templateKey,
           name: `${templateKey}_insight`,
-          parameters: {
-            triggerCondition,
-            messageTemplate,
-          },
+          parameters: buildParameters(),
+          messageTemplate: messageTemplate || undefined,
         }),
       });
       router.push("/advising-configuration/insights?created=1");
@@ -101,140 +127,144 @@ export default function NewInsightPage() {
   }
 
   return (
-    <div className="flex h-screen w-full flex-col bg-white">
-      <SmallNav />
-      <FormHeader title="Advising Configuration" />
+    <div className="flex flex-1 flex-col overflow-auto px-6 py-4">
+      <div className="mb-4 flex items-center gap-2">
+        <Link
+          href="/advising-configuration/insights"
+          className="flex items-center justify-center"
+        >
+          <Image src="/images/arrow-back.svg" alt="Back" width={16} height={16} />
+        </Link>
+        <h1 className="font-[Arial,sans-serif] text-[1rem] font-bold text-black">
+          Edit Advising Insight
+        </h1>
+      </div>
 
-      <div className="flex flex-1 overflow-hidden">
-        <NavigationSubmenu items={SUBMENU_ITEMS} />
+      {error && (
+        <p className="mb-2 font-[Arial,sans-serif] text-[0.75rem] text-alert-red">
+          {error}
+        </p>
+      )}
 
-        <div className="flex flex-1 flex-col overflow-auto px-6 py-4">
-          <div className="mb-4 flex items-center gap-2">
-            <Link
-              href="/advising-configuration/insights"
-              className="flex items-center justify-center"
-            >
-              <Image
-                src="/images/arrow-back.svg"
-                alt="Back"
-                width={16}
-                height={16}
-              />
-            </Link>
-            <h1 className="font-[Arial,sans-serif] text-[1rem] font-bold text-black">
-              Edit Advising Insight
-            </h1>
+      <div className="flex w-214.75 max-w-full flex-col gap-6 rounded-sm bg-white p-2 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]">
+        <div className="flex flex-wrap items-start gap-8.25">
+          <div className="flex w-56 flex-col gap-2.5">
+            <label className="font-[Arial,sans-serif] text-[0.75rem] leading-none text-black">
+              Apply to Advisor
+            </label>
+            <Dropdown
+              value={advisorId}
+              onChange={setAdvisorId}
+              placeholder="-- Select Advisor --"
+              options={advisors.map((advisor) => ({
+                value: advisor.advisorId,
+                label: (
+                  advisor.name ||
+                  advisor.username ||
+                  advisor.email ||
+                  advisor.advisorId
+                ).trim(),
+              }))}
+            />
           </div>
 
-          {error && (
-            <p className="mb-2 font-[Arial,sans-serif] text-[0.75rem] text-alert-red">
-              {error}
-            </p>
+          <div className="flex w-58.5 flex-col gap-2.5">
+            <label className="font-[Arial,sans-serif] text-[0.75rem] leading-none text-black">
+              *Template Key
+            </label>
+            <Dropdown
+              value={templateKey}
+              onChange={setTemplateKey}
+              placeholder="-- Select Template --"
+              options={TEMPLATE_KEYS.map((key) => ({ value: key, label: key }))}
+            />
+          </div>
+
+          {templateKey === "CREDENTIALS_NEAR_COMPLETION" && (
+            <div className="flex w-56 flex-col gap-2.5">
+              <label className="font-[Arial,sans-serif] text-[0.75rem] leading-none text-black">
+                *Threshold Percentage (0–100)
+              </label>
+              <input
+                type="number"
+                min={0}
+                max={100}
+                value={thresholdPercentage}
+                onChange={(e) => setThresholdPercentage(e.target.value)}
+                placeholder="e.g. 80"
+                className="h-7 w-full border border-[#d1d5db] bg-white px-2.5 font-[Arial,sans-serif] text-[0.75rem] text-black outline-none focus:border-[#3182ce]"
+              />
+            </div>
           )}
 
-          <div className="flex w-214.75 max-w-full flex-col gap-6 rounded-sm bg-white p-2 shadow-[0px_0px_4px_0px_rgba(0,0,0,0.25)]">
-            {/* Form fields - wrapping row */}
-            <div className="flex flex-wrap items-start gap-8.25">
-              {/* Apply to Advisor */}
-              <div className="flex w-56 flex-col gap-2.5">
-                <label className="font-[Arial,sans-serif] text-[0.75rem] leading-none text-black">
-                  Apply to Advisor
-                </label>
-                <div className="relative">
-                  <select
-                    value={advisorId}
-                    onChange={(e) => setAdvisorId(e.target.value)}
-                    className="h-7 w-full appearance-none border border-[#d1d5db] bg-white pl-10.75 pr-1.5 font-[Arial,sans-serif] text-[0.75rem] text-black outline-none focus:border-[#3182ce]"
-                  >
-                    <option value="">-- Select Advisor --</option>
-                    {advisors.map((advisor) => (
-                      <option key={advisor.advisorId} value={advisor.advisorId}>
-                        {(
-                          advisor.name ||
-                          advisor.username ||
-                          advisor.email ||
-                          advisor.advisorId
-                        ).trim()}
-                      </option>
-                    ))}
-                  </select>
-                  <div className="pointer-events-none absolute left-1.5 top-1/2 -translate-y-1/2">
-                    <Image
-                      src="/images/chevron-down.svg"
-                      alt=""
-                      width={16}
-                      height={16}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Template Key */}
-              <div className="flex w-58.5 flex-col gap-2.5">
-                <label className="font-[Arial,sans-serif] text-[0.75rem] leading-none text-black">
-                  *Template Key
-                </label>
-                <div className="relative">
-                  <select
-                    value={templateKey}
-                    onChange={(e) => setTemplateKey(e.target.value)}
-                    className="h-7 w-full appearance-none border border-[#d1d5db] bg-white pl-10.75 pr-1.5 font-[Arial,sans-serif] text-[0.75rem] text-black outline-none focus:border-[#3182ce]"
-                  >
-                    <option value="">-- Select Template --</option>
-                    {TEMPLATE_KEYS.map((key) => (
-                      <option key={key} value={key}>
-                        {key}
-                      </option>
-                    ))}
-                  </select>
-                  <div className="pointer-events-none absolute left-1.5 top-1/2 -translate-y-1/2">
-                    <Image
-                      src="/images/chevron-down.svg"
-                      alt=""
-                      width={16}
-                      height={16}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Trigger Condition */}
-              <div className="flex w-78.25 flex-col gap-2.5">
-                <label className="font-[Arial,sans-serif] text-[0.75rem] leading-none text-black">
-                  Trigger Condition
-                </label>
-                <textarea
-                  value={triggerCondition}
-                  onChange={(e) => setTriggerCondition(e.target.value)}
-                  className="h-10.75 w-full resize-none border border-[#d4d4d4] bg-white p-1 font-[Inconsolata,monospace] text-[0.75rem] text-black outline-none focus:border-[#3182ce]"
-                />
-              </div>
-
-              {/* Message Template */}
-              <div className="flex w-78.25 flex-col gap-2">
-                <label className="font-[Arial,sans-serif] text-[0.75rem] leading-none text-black">
-                  Message Template
-                </label>
-                <textarea
-                  value={messageTemplate}
-                  onChange={(e) => setMessageTemplate(e.target.value)}
-                  className="h-17.5 w-full resize-none border border-[#d1d5db] bg-white p-1 font-[Arial,sans-serif] text-[0.75rem] text-black outline-none focus:border-[#3182ce]"
-                />
-              </div>
+          {templateKey === "SCHOLARSHIP_ELIGIBILITY" && (
+            <div className="flex w-56 flex-col gap-2.5">
+              <label className="font-[Arial,sans-serif] text-[0.75rem] leading-none text-black">
+                *Scholarship Name
+              </label>
+              <Dropdown
+                value={scholarshipName}
+                onChange={setScholarshipName}
+                placeholder="-- Select Scholarship --"
+                options={SCHOLARSHIP_OPTIONS.map((s) => ({ value: s, label: s }))}
+              />
             </div>
+          )}
 
-            {/* CREATE INSIGHT button */}
-            <div className="flex flex-col items-end">
-              <Button
-                variant="secondary"
-                className="w-33.25"
-                onClick={() => void handleCreate()}
-                disabled={submitting}
-              >
-                {submitting ? "CREATING..." : "CREATE INSIGHT"}
-              </Button>
+          {templateKey === "SUGGESTED_COURSES" && (
+            <div className="flex w-56 flex-col gap-2.5">
+              <label className="font-[Arial,sans-serif] text-[0.75rem] leading-none text-black">
+                Department (optional)
+              </label>
+              <input
+                type="text"
+                value={department}
+                onChange={(e) => setDepartment(e.target.value)}
+                placeholder="e.g. CS"
+                className="h-7 w-full border border-[#d1d5db] bg-white px-2.5 font-[Arial,sans-serif] text-[0.75rem] text-black outline-none focus:border-[#3182ce]"
+              />
             </div>
+          )}
+
+          <div className="flex w-78.25 flex-col gap-2">
+            <label className="font-[Arial,sans-serif] text-[0.75rem] leading-none text-black">
+              Message Template
+            </label>
+            {templateKey && TEMPLATE_VARIABLES[templateKey] && (
+              <p className="font-[Arial,sans-serif] text-[0.625rem] leading-tight text-[#6b7280]">
+                Available variables:{" "}
+                {TEMPLATE_VARIABLES[templateKey].vars.map((v) => (
+                  <code
+                    key={v}
+                    className="mx-0.5 rounded bg-[#f3f4f6] px-1 py-0.5 font-[Inconsolata,monospace] text-[0.625rem] text-[#374151]"
+                  >
+                    {`{{${v}}}`}
+                  </code>
+                ))}
+              </p>
+            )}
+            <textarea
+              value={messageTemplate}
+              onChange={(e) => setMessageTemplate(e.target.value)}
+              placeholder={
+                templateKey && TEMPLATE_VARIABLES[templateKey]
+                  ? TEMPLATE_VARIABLES[templateKey].example
+                  : "Select a template key to see available variables"
+              }
+              className="h-17.5 w-full resize-none border border-[#d1d5db] bg-white p-1 font-[Arial,sans-serif] text-[0.75rem] text-black placeholder:text-[#9ca3af] outline-none focus:border-[#3182ce]"
+            />
           </div>
+        </div>
+
+        <div className="flex flex-col items-end">
+          <Button
+            variant="secondary"
+            className="w-33.25"
+            onClick={() => void handleCreate()}
+            disabled={submitting}
+          >
+            {submitting ? "CREATING..." : "CREATE INSIGHT"}
+          </Button>
         </div>
       </div>
     </div>

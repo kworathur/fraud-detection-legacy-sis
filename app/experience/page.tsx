@@ -1,9 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
 import NavLinks from "@/components/layout/NavLinks";
 import AnnouncementCards from "@/components/cards/AnnouncementCarousel";
-import AssignedAdvisingCard from "@/components/cards/AssignedAdvisingCard";
-import DisbursementCard from "@/components/cards/DisbursementCard";
-import ClassesCard from "@/components/cards/ClassesCard";
+import ExperienceCards from "./ExperienceCards";
 import {
   announcements,
   disbursementInfo,
@@ -32,11 +30,10 @@ export default function ExperiencePage() {
 
         {/* Card Grid */}
         <section className="flex-1 bg-card-grid-bg p-10 pt-3">
-          <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(19.6875rem,19.6875rem))] content-start justify-start gap-6">
-            <AssignedAdvisingCard />
-            <ClassesCard {...classesData} />
-            <DisbursementCard {...disbursementInfo} />
-          </div>
+          <ExperienceCards
+            classesData={classesData}
+            disbursementInfo={disbursementInfo}
+          />
         </section>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Roboto, Akshar, Roboto_Slab } from 'next/font/google';
+import SessionTimeoutModal from '@/components/ui/SessionTimeoutModal';
 import './globals.css';
 
 const roboto = Roboto({
@@ -36,6 +37,7 @@ export default function RootLayout({
                 className={`${roboto.variable} ${akshar.variable} ${robotoSlab.variable} antialiased`}
             >
                 {children}
+                {/* <SessionTimeoutModal /> */}
             </body>
         </html>
     );

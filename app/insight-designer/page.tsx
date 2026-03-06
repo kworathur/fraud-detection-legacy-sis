@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { SmallNav } from "@/components/layout/Navbar";
+import Dropdown from "@/components/ui/Dropdown";
 import { quaidApiRequest } from "@/lib/quaid-api-client";
 import type {
   AdvisingInsight,
@@ -206,24 +207,19 @@ export default function InsightDesignerPage() {
                   className="mt-1 h-9 w-full border border-[#d1d5db] px-2"
                 />
               </label>
-              <label className="text-sm text-[#404040]">
-                Template
-                <select
+              <div className="flex flex-col gap-1">
+                <span className="text-sm text-[#404040]">Template</span>
+                <Dropdown
                   value={templateKey}
-                  onChange={(event) =>
-                    setTemplateKey(event.target.value as TemplateKey)
-                  }
-                  className="mt-1 h-9 w-full border border-[#d1d5db] px-2"
-                >
-                  <option value="CREDENTIALS_NEAR_COMPLETION">
-                    CREDENTIALS_NEAR_COMPLETION
-                  </option>
-                  <option value="SCHOLARSHIP_ELIGIBILITY">
-                    SCHOLARSHIP_ELIGIBILITY
-                  </option>
-                  <option value="SUGGESTED_COURSES">SUGGESTED_COURSES</option>
-                </select>
-              </label>
+                  onChange={(v) => setTemplateKey(v as TemplateKey)}
+                  options={[
+                    { value: "CREDENTIALS_NEAR_COMPLETION", label: "CREDENTIALS_NEAR_COMPLETION" },
+                    { value: "SCHOLARSHIP_ELIGIBILITY", label: "SCHOLARSHIP_ELIGIBILITY" },
+                    { value: "SUGGESTED_COURSES", label: "SUGGESTED_COURSES" },
+                  ]}
+                  placeholder="-- Select Template --"
+                />
+              </div>
               <label className="text-sm text-[#404040]">
                 Parameters (JSON)
                 <textarea

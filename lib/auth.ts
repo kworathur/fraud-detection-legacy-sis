@@ -47,6 +47,57 @@ function resolveCognitoIssuer(): string {
   return `https://cognito-idp.${region}.amazonaws.com/${userPoolId}`;
 }
 
+export async function refreshAccessToken(
+  refreshToken: string,
+): Promise<{
+  accessToken: string;
+  idToken: string;
+  expiresAt: number;
+} | null> {
+  try {
+    const tokenUrl = `${resolveCognitoDomain()}/oauth2/token`;
+    const params = new URLSearchParams({
+      grant_type: "refresh_token",
+      client_id: process.env.COGNITO_CLIENT_ID ?? "",
+      refresh_token: refreshToken,
+    });
+
+    if (process.env.COGNITO_CLIENT_SECRET) {
+      params.set("client_secret", process.env.COGNITO_CLIENT_SECRET);
+    }
+
+    const response = await fetch(tokenUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params.toString(),
+    });
+
+    if (!response.ok) {
+      console.error(
+        "[auth] Failed to refresh token",
+        response.status,
+        await response.text(),
+      );
+      return null;
+    }
+
+    const data = (await response.json()) as {
+      access_token: string;
+      id_token: string;
+      expires_in: number;
+    };
+
+    return {
+      accessToken: data.access_token,
+      idToken: data.id_token,
+      expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
+    };
+  } catch (error) {
+    console.error("[auth] Token refresh error", error);
+    return null;
+  }
+}
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Cognito({
@@ -91,11 +142,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      // Expose token data to the client session if needed
       if (token.sub) {
         session.user.id = token.sub;
       }
       (session as { accessToken?: unknown }).accessToken = token.accessToken;
+      (session as { refreshToken?: unknown }).refreshToken = token.refreshToken;
       session.user.groups = Array.isArray(token.groups)
         ? (token.groups as string[])
         : [];

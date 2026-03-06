@@ -10,7 +10,7 @@ export default function CardFooter({
   variant?: "primary" | "secondary" | "warning";
 }>) {
   return (
-    <div className="flex shrink-0 flex-col items-center justify-center px-2.75 py-2.5">
+    <div className="flex h-11 shrink-0 items-center justify-center">
       <Button href={ctaHref} variant={variant}>
         {ctaText}
       </Button>
