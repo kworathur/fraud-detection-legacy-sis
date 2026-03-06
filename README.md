@@ -1,41 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ellucian Experience Idol Contest Submission
 
-## Getting Started
+## About
 
-First, run the development server:
+Experience Idol is a contest where participants design a dashboard that uses card-based UI to improve the student experience at higher education institutions through. While the contest is open only to Ellucian customer institutions, I wanted to give it a shot because I'm ideating startup ideas for the higher education space and because I wanted to solve pain points I've experienced as a student!
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Problem Statement
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Many students complete their degrees without engaging in one-on-one advising sessions. This leads to students potentially missing out on value-added credentials, early career opportunities, and more. One solution to this problem is to suggest to students topics they can discuss with their advisor using a card in their student dashboard.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## UI/UX Design
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+I designed the card so that it is not information dense and interactive. The use of a chat bubble helps catch the student's attention and gives the card a more personal feel.
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+UI/UX Design - Figma
+Frontend - NextJS app hosted on AWS Amplify
+Backend - Serverless REST API written with typescript, also hosted on AWS.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Challenges
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The major challenge I ran into was spending less time auditing code produced by LLMs closer to the project deadline, which resulted in the codebase growing at a rate faster than I could understand the new code being written.
 
-## Deploy on Vercel
+## Future Plans
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-# Supported Authentication Types 
-
-- OiDC Authorization Code + PKCE with cognito as the identity provider
-- SAML with enterprise IDP implementation pending
+I plan to use this student dashboard as an ideation space for startup ideas. I also plan to integrate the system with legacy systems (e.g. SAML with Azure AD) to showcase to future customers the ease of integration.
