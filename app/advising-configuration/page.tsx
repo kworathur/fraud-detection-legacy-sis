@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import Table from '@/components/ui/Table';
@@ -97,6 +97,14 @@ function SuccessToast({
 }
 
 export default function AdvisingConfigurationPage() {
+    return (
+        <Suspense>
+            <AdvisingConfigurationContent />
+        </Suspense>
+    );
+}
+
+function AdvisingConfigurationContent() {
     const searchParams = useSearchParams();
     const [rules, setRules] = useState<AdvisingRule[]>([]);
     const [advisors, setAdvisors] = useState<AdvisorDirectoryEntry[]>([]);

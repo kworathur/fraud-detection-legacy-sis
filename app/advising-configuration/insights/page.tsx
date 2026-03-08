@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import Table from "@/components/ui/Table";
@@ -72,6 +72,14 @@ function SuccessToast({
 }
 
 export default function AdvisingInsightsPage() {
+  return (
+    <Suspense>
+      <AdvisingInsightsContent />
+    </Suspense>
+  );
+}
+
+function AdvisingInsightsContent() {
   const searchParams = useSearchParams();
   const [insights, setInsights] = useState<AdvisingInsight[]>([]);
   const [advisors, setAdvisors] = useState<AdvisorDirectoryEntry[]>([]);
