@@ -109,9 +109,11 @@ function getDefaultShortcuts({
 function NavQuickActions({
     onAppsClick,
     onProfileClick,
+    userInitial,
 }: Readonly<{
     onAppsClick?: () => void;
     onProfileClick?: () => void;
+    userInitial?: string;
 }>) {
     return (
         <div className="flex items-center gap-7.5">
@@ -164,7 +166,7 @@ function NavQuickActions({
                     height={38}
                 />
                 <span className="absolute inset-0 flex items-center justify-center font-[Arial,sans-serif] text-[1.125rem] font-bold text-[#4a5568]">
-                    J
+                    {userInitial ?? '?'}
                 </span>
             </button>
         </div>
@@ -389,7 +391,9 @@ function useOverlayEscape(
 export default function Navbar() {
     const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
-    const { loaded, isAdvisor, isAdmin } = useRole();
+    const { loaded, name, isAdvisor, isAdmin } = useRole();
+
+    const userInitial = name ? name.charAt(0).toUpperCase() : undefined;
 
     const defaultShortcuts = useMemo(
         () => getDefaultShortcuts({ isAdvisor, isAdmin }),
@@ -442,6 +446,7 @@ export default function Navbar() {
                 <NavQuickActions
                     onAppsClick={() => setIsShortcutsOpen(true)}
                     onProfileClick={() => setIsProfileOpen(true)}
+                    userInitial={userInitial}
                 />
             </nav>
             <ShortcutsOverlay
@@ -467,7 +472,9 @@ export default function Navbar() {
 export function SmallNav() {
     const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
-    const { loaded, isAdvisor, isAdmin } = useRole();
+    const { loaded, name, isAdvisor, isAdmin } = useRole();
+
+    const userInitial = name ? name.charAt(0).toUpperCase() : undefined;
 
     const defaultShortcuts = useMemo(
         () => getDefaultShortcuts({ isAdvisor, isAdmin }),
@@ -513,6 +520,7 @@ export function SmallNav() {
                 <NavQuickActions
                     onAppsClick={() => setIsShortcutsOpen(true)}
                     onProfileClick={() => setIsProfileOpen(true)}
+                    userInitial={userInitial}
                 />
             </nav>
             <ShortcutsOverlay

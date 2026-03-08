@@ -45,9 +45,8 @@ function ChatBubble({
 
 function AdvisorAvatar() {
     return (
-        <div className="h-6 w-6 overflow-hidden rounded-full bg-[#e0f2fe]">
+        <div className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full bg-[#e0f2fe]">
             <svg
-                className="mx-auto my-auto"
                 width="16"
                 height="16"
                 viewBox="0 0 18 20"
@@ -64,10 +63,8 @@ function AdvisorAvatar() {
 function CheckboxItem({ text }: Readonly<{ text: string }>) {
     return (
         <div className="flex h-12 w-full items-center gap-1.5">
-            <div className="flex w-[33px] shrink-0 flex-col items-center justify-center pr-1 py-1">
-                <div className="flex items-center justify-center rounded-full p-[11px]">
-                    <div className="h-[18px] w-[18px] rounded-sm border border-[#3b82f6]" />
-                </div>
+            <div className="flex w-11 shrink-0 items-center justify-center">
+                <div className="h-[18px] w-[18px] rounded-sm border border-[#3b82f6]" />
             </div>
             <p className="flex-1 font-[Arial,sans-serif] text-[0.8125rem] leading-4 text-slate-900">
                 {text}
@@ -89,12 +86,12 @@ export default function AdvisingCard({
                 variant="info"
                 text={`${slotsLeft} Advising Slots Left This Week!`}
             />
-            <div className="flex flex-col items-center px-1.25 py-2">
+            <div className="flex flex-col items-center px-1.25 py-1">
                 <div className="flex w-full items-end">
-                    <div className="flex w-fit shrink-0 items-end justify-center p-2.5">
+                    <div className="flex w-fit shrink-0 items-end justify-center pl-2.5">
                         <AdvisorAvatar />
                     </div>
-                    <div className="flex flex-1 p-2.5 mb-2">
+                    <div className="flex flex-1 p-2.5 mb-3">
                         <ChatBubble
                             sender={chatMessage.sender}
                             text={chatMessage.text}

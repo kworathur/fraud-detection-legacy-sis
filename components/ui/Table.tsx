@@ -134,7 +134,7 @@ export function TableRow({
     onToggle?: () => void;
 }>) {
     return (
-        <div className="flex h-12.25 items-center gap-1 border-b border-[#d1d5db] px-3.5">
+        <div data-meeting-id={row.id} className="flex h-12.25 items-center gap-1 border-b border-[#d1d5db] px-3.5">
             {showCheckbox && (
                 <input
                     type="checkbox"

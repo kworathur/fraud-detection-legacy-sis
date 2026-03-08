@@ -43,11 +43,8 @@ export default function FormSteps({
     return (
         <div className="flex w-54 shrink-0 flex-col gap-0 border-r border-[#d1d5db] bg-white px-5.5 py-4.5">
             {steps.map((step, i) => (
-                <div>
-                    <div
-                        key={step.label}
-                        className="flex w-full items-center gap-1.5"
-                    >
+                <div key={step.label}>
+                    <div className="flex w-full items-center gap-1.5">
                         <StepIcon
                             icon={step.icon}
                             active={step.active ?? false}

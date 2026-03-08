@@ -14,7 +14,7 @@ export default function ExperiencePage() {
     <div className="relative min-h-screen w-full bg-white">
       <div className="flex min-h-screen w-full flex-col">
         {/* Experience Header with background image */}
-        <header className="relative bg-white px-10 py-7">
+        <header className="relative bg-white px-[clamp(1.5rem,5vw,5rem)] py-7">
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: "url('/images/header-bg.jpg')" }}
@@ -29,7 +29,7 @@ export default function ExperiencePage() {
         <NavLinks links={navLinks} />
 
         {/* Card Grid */}
-        <section className="flex-1 bg-card-grid-bg p-10 pt-3">
+        <section className="flex-1 bg-card-grid-bg px-[clamp(1.5rem,5vw,5rem)] pb-10 pt-3">
           <ExperienceCards
             classesData={classesData}
             disbursementInfo={disbursementInfo}

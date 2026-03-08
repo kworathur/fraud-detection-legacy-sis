@@ -4,29 +4,29 @@ import CardFooter from './CardFooter';
 
 const routes = [
     {
-        name: 'Blue Route',
+        name: 'Gold Route',
         status: 'On Time',
         nextArrival: '3:12 PM',
-        stop: 'Student Center',
+        stop: 'College of Computing Building',
+    },
+    {
+        name: 'Clough Route',
+        status: 'Delayed 5 min',
+        nextArrival: '3:25 PM',
+        stop: 'Clough Undergraduate',
     },
     {
         name: 'Red Route',
-        status: 'Delayed 5 min',
-        nextArrival: '3:25 PM',
-        stop: 'Library',
-    },
-    {
-        name: 'Green Route',
         status: 'On Time',
         nextArrival: '3:40 PM',
-        stop: 'Rec Center',
+        stop: 'Recreation Center',
     },
 ];
 
 export default function TransitServiceCard() {
     return (
         <BaseCard
-            header={<CardHeader title="Transit Service Tracker" />}
+            header={<CardHeader title="Stinger Tracker" />}
             contentClassName="gap-2"
         >
             <div className="h-full flex flex-col gap-2.5 px-3.5 pt-1">

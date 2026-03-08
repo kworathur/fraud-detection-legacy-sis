@@ -13,7 +13,7 @@ export default function NavLinks({
     const pathname = usePathname();
 
     return (
-        <div className="flex h-9.75 w-full items-end justify-between border-b border-nav-border bg-white px-10 overflow-auto">
+        <div className="flex h-9.75 w-full items-end justify-between border-b border-nav-border bg-white px-[clamp(1.5rem,5vw,5rem)] overflow-auto">
             <nav className="flex items-end gap-6">
                 {links.map((link) => {
                     const isActive = pathname === link.href;

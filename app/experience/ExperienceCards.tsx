@@ -21,7 +21,7 @@ export default function ExperienceCards({
     const { loaded, isStudent } = useRole();
 
     return (
-        <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(19.6875rem,19.6875rem))] content-start justify-start gap-6">
+        <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(19.6875rem,19.6875rem))] content-start justify-center gap-6">
             {loaded && isStudent && <AssignedAdvisingCard />}
 
             <DisbursementCard {...disbursementInfo} />

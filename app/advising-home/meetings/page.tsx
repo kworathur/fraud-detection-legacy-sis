@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { TableHeader, TableRow, TablePaginationBar } from "@/components/ui/Table";
 import { quaidApiRequest } from "@/lib/quaid-api-client";
 import type {
@@ -52,6 +53,7 @@ function isSameDay(a: Date, b: Date): boolean {
 }
 
 export default function AdvisingMeetingsAdvisorPage() {
+  const router = useRouter();
   const [slots, setSlots] = useState<AdvisingSlot[]>([]);
   const [studentMap, setStudentMap] = useState<Map<number, { name: string; email: string }>>(new Map());
   const [loading, setLoading] = useState(false);
@@ -182,11 +184,16 @@ export default function AdvisingMeetingsAdvisorPage() {
               </div>
             ) : (
               rows.map((row) => (
-                <TableRow
+                <div
                   key={row.id}
-                  row={row}
-                  columns={TABLE_COLUMNS}
-                />
+                  className="cursor-pointer"
+                  onClick={() => router.push(`/advising-meetings/${row.id}`)}
+                >
+                  <TableRow
+                    row={row}
+                    columns={TABLE_COLUMNS}
+                  />
+                </div>
               ))
             )}
             {pagination && <TablePaginationBar pagination={pagination} />}
