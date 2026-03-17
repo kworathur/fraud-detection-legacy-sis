@@ -2,7 +2,7 @@
 
 ## About/Motivation
 
-Experience Idol is a contest where participants design a dashboard that uses card-based UI to improve the student experience at higher education institutions through. While the contest is intended only for Ellucian customer institutions, I wanted to give it a shot I wanted to solve pain points I've experienced as a student through easy to use technology.
+Experience Idol is a contest where participants design a dashboard that uses card-based UI to improve the student experience at higher education institutions. While the contest was intended for Ellucian customer institutions, I wanted to give it a shot since I wanted to solve pain points I've experienced as a student during the registration season.
 
 ## Problem Statement
 
