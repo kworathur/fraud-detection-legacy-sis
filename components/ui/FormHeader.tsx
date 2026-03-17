@@ -1,13 +1,13 @@
 export default function FormHeader({
-  title,
+    title,
 }: Readonly<{
-  title: string;
+    title: string;
 }>) {
-  return (
-    <div className="flex h-[2.75rem] w-full items-center border-b border-[#d1d5db] bg-white pb-[0.625rem] pl-[0.9375rem] pr-[0.625rem] pt-[0.0625rem]">
-      <p className="font-[family-name:Arial,sans-serif] text-[0.875rem] font-bold leading-none text-black">
-        {title}
-      </p>
-    </div>
-  );
+    return (
+        <div className="flex h-11 w-full items-center border-b border-[#d1d5db] bg-white pb-2.5 pl-3.75 pr-2.5 pt-0.25">
+            <p className="font-[Arial,sans-serif] text-[1.125rem] font-bold leading-none text-black">
+                {title}
+            </p>
+        </div>
+    );
 }

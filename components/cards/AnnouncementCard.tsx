@@ -1,25 +1,27 @@
-import type { Announcement } from "@/lib/types";
+import type { Announcement } from '@/lib/types';
 
 export default function AnnouncementCard({
-  announcement,
+    announcement,
 }: Readonly<{
-  announcement: Announcement;
+    announcement: Announcement;
 }>) {
-  return (
-    <div className="relative h-[8.4375rem] w-[19.875rem] shrink-0 overflow-hidden rounded-[0.25rem] bg-white">
-      <div className="absolute inset-x-0 top-0 h-[0.8125rem] rounded-t-[0.25rem] bg-gt-gold" />
-      <div className="absolute inset-[33.78%_1.57%_39.86%_1.57%] flex items-center justify-center text-center font-[family-name:Arial,sans-serif] text-[0.9375rem] leading-[1.3125rem] text-black">
-        <p>{announcement.title}</p>
-      </div>
-      <div className="absolute bottom-[8.78%] left-[4.4%] font-[family-name:Arial,sans-serif] text-[0.875rem] leading-normal text-[#718096]">
-        {announcement.index}
-      </div>
-      <a
-        href={announcement.linkHref}
-        className="absolute bottom-[8.78%] right-[4.4%] font-[family-name:Arial,sans-serif] text-[0.8125rem] leading-normal text-[#3182ce] underline"
-      >
-        {announcement.linkText}
-      </a>
-    </div>
-  );
+    return (
+        <div className="flex h-33.75 w-78.75 flex-col overflow-hidden rounded-sm bg-white">
+            <div className="h-3.25 shrink-0 rounded-t-sm bg-gt-gold" />
+            <div className="flex flex-1 items-center justify-center px-2 py-3 text-center font-[Arial,sans-serif] text-[0.9375rem] leading-5.25 text-black">
+                <p>{announcement.title}</p>
+            </div>
+            <div className="flex items-center justify-between px-3 pb-2">
+                <span className="font-[Arial,sans-serif] text-[0.875rem] leading-normal text-nav-muted">
+                    {announcement.index}
+                </span>
+                <a
+                    href={announcement.linkHref}
+                    className="font-[Arial,sans-serif] text-[0.8125rem] leading-normal text-link-blue underline"
+                >
+                    {announcement.linkText}
+                </a>
+            </div>
+        </div>
+    );
 }
