@@ -3,13 +3,17 @@ import Button from "@/components/ui/Button";
 export default function CardFooter({
   ctaText,
   ctaHref,
+  variant = "primary",
 }: Readonly<{
   ctaText: string;
   ctaHref?: string;
+  variant?: "primary" | "secondary" | "warning";
 }>) {
   return (
-    <div className="flex h-[50px] shrink-0 flex-col items-center justify-center px-[11px] py-[10px]">
-      <Button href={ctaHref}>{ctaText}</Button>
+    <div className="flex h-11 shrink-0 items-center justify-center">
+      <Button href={ctaHref} variant={variant}>
+        {ctaText}
+      </Button>
     </div>
   );
 }

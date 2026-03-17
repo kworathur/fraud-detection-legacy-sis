@@ -29,7 +29,7 @@ export default function TermSelector({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1 font-sans text-[13px] font-semibold tracking-[0.65px] text-[color:var(--schemes-on-background,#1d1b20)]"
+        className="flex items-center gap-0.25 font-sans text-[0.8125rem] font-semibold tracking-[0.040625rem] text-[#1d1b20]"
       >
         {selected}
         <Image src="/images/chevron-down.svg" alt="" width={16} height={16} />
@@ -44,8 +44,10 @@ export default function TermSelector({
                 setSelected(term);
                 setIsOpen(false);
               }}
-              className={`block w-full px-3 py-1.5 text-left text-xs hover:bg-gray-50 ${
-                term === selected ? "font-semibold text-[#3182ce]" : "text-slate-600"
+              className={`block w-full px-[0.75rem] py-[0.375rem] text-left text-[0.75rem] hover:bg-gray-50 ${
+                term === selected
+                  ? "font-semibold text-[#3182ce]"
+                  : "text-slate-600"
               }`}
             >
               {term}
