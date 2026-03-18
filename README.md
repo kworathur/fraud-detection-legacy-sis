@@ -1,4 +1,6 @@
 
+[![E2E Tests](https://github.com/kworathur/experience-idol/actions/workflows/playwright.yml/badge.svg)](https://github.com/kworathur/experience-idol/actions/workflows/playwright.yml)
+
 # Ellucian Experience Idol Contest Submission
 ![Experience Dashboard - Student View](https://github.com/user-attachments/assets/f5490c62-a2b0-4e6c-9b75-5d211ef70070)
 
