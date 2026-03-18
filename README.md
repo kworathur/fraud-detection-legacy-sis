@@ -32,3 +32,7 @@ The major challenge I ran into was spending less time auditing code produced by 
 ## Future Plans
 
 I plan to use this student dashboard as an ideation space for startup ideas. I also plan to integrate the system with legacy systems (e.g. SAML with Azure AD) to showcase to future customers the ease of integration.
+
+## TODO
+- Define software versions
+- Deploy public-facing documentation
