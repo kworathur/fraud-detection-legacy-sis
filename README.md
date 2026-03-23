@@ -11,31 +11,6 @@ The U.S. department of education has been using ![data models](https://www.ed.go
 
 Yet, a considerable amount of fraud can only be detected by observing a student's behavior over time. This project uses attendance data and FAFSA application fields to identify potential fraudsters in higher education institutions.
 
-## Problem Statement
+## Documentation Links
 
-Many students complete their degrees without engaging in one-on-one advising sessions. This leads to students potentially missing out on value-added credentials, early career opportunities, and more. One solution to this problem is to suggest to students topics they can discuss with their advisor using a card in their student dashboard.
-
-## UI/UX Design
-
-I designed the card so that it is not information dense and interactive. The use of a chat bubble helps catch the student's attention and gives the card a more personal feel.
-
-
-![not_booked](https://github.com/user-attachments/assets/c7d76e24-d32d-4bcc-a225-4115d535a766)
-
-## Tech Stack
-
-UI/UX Design - Figma
-Frontend - NextJS app hosted on AWS Amplify
-Backend - Serverless REST API written with typescript, also hosted on AWS.
-
-## Challenges
-
-The major challenge I ran into was spending less time auditing code produced by LLMs closer to the project deadline, which resulted in the codebase growing at a rate faster than I could understand the new code being written.
-
-## Future Plans
-
-I plan to use this student dashboard as an ideation space for startup ideas. I also plan to integrate the system with legacy systems (e.g. SAML with Azure AD) to showcase to future customers the ease of integration.
-
-## TODO
-- Define software versions
-- Deploy public-facing documentation
+- The documentation for the financial aid app fraud detection can be found at ![here](www.docs.quaid-ai.com)
