@@ -13,4 +13,4 @@ Yet, a considerable amount of fraud can only be detected by observing a student'
 
 ## Documentation Links
 
-- [Fraud detection API documentation](www.docs.quaid-ai.com) 
+- [Fraud detection API documentation](https://www.docs.quaid-ai.com) 
