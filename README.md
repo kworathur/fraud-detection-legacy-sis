@@ -5,9 +5,9 @@
 
 Verifying that financial aid money is disbursed to eligible students is becoming a challenge for higher education institutions, especially community colleges. The U.S. Derpartment of Education found **over 40$ million in loans** issued to ineligible recipients in the [past year alone](https://www.ed.gov/about/news/press-release/us-department-of-education-fights-fraud-student-aid-protect-american-taxpayer). 
 
-As enrollment grows, the use automated workflows for verifying students is the only way to scale an institution's growth.
+As enrollment grows, the use of automated workflows for verifying students is the best way to scale your institution's growth.
 
-This is why I built a tool that integrates natively with student information systems (SIS), like Ellucian's experience platform, which contain a wealth of data on financial aid disbursements. None of the existing solutions for financial aid verification leverage behavioral data from LMSes like Blackboard/Canvas and video conferencing platforms.
+This is why I built a tool that integrates natively with student information systems (SIS), like Ellucian's experience platform, which contain a wealth of data on financial aid disbursements. None of the existing solutions for financial aid verification leverage **behavioral data** such as attendance data from third party platforms. 
 
 ## Documentation
 
