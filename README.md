@@ -15,6 +15,14 @@ Yet, a considerable amount of fraud can only be detected by observing a student'
 
 - [Fraud detection API documentation](https://www.docs.quaid-ai.com)
 
+## Feature Demos
+
+As a student, I should be able to book meetings with my advisor to validate my identity and explain attendance behavior that was flagged by the AI tool
+
+![](https://www.docs.quaid-ai.com/feature_demos/book_advising_meeting.gif)
+
+
+
 ## Changelog
 
-v1 - Implented background checks API routes and dashboard landing page with personalized advising card
+v0.1.0 - Implented background checks API routes and dashboard landing page with personalized advising card
