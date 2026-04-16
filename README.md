@@ -2,11 +2,12 @@
 [![E2E Tests](https://github.com/kworathur/experience-idol/actions/workflows/playwright.yml/badge.svg)](https://github.com/kworathur/experience-idol/actions/workflows/playwright.yml)
 
 # Financial Aid Fraud Detection Inside Ellucian Experience
-## Introduction
 
-The U.S. department of education has been using [data models](https://www.ed.gov/about/news/press-release/us-department-of-education-fights-fraud-student-aid-protect-american-taxpayer) to detect fraud in FAFSA applications, finding **over 40$ million in loans** issued to ineligible recipients. First time applicants that are suspected of fraud are placed in V4/V5 verification, where they must provide government-issued identification to confirm their identity.
+Verifying that financial aid money is disbursed to eligible students is becoming a challenge for higher education institutions, especially community colleges. The U.S. Derpartment of Education found **over 40$ million in loans** issued to ineligible recipients in the [past year alone](https://www.ed.gov/about/news/press-release/us-department-of-education-fights-fraud-student-aid-protect-american-taxpayer). 
 
-Yet, a considerable amount of fraud can only be detected by observing a student's behavior over time. This project uses attendance data and FAFSA application fields to identify potential fraudsters in higher education institutions.
+As enrollment grows, the use automated workflows for verifying students is the only way to scale an institution's growth.
+
+This is why I built a tool that integrates natively with student information systems (SIS), like Ellucian's experience platform, which contain a wealth of data on financial aid disbursements. None of the existing solutions for financial aid verification leverage behavioral data from LMSes like Blackboard/Canvas and video conferencing platforms.
 
 ## Documentation
 
