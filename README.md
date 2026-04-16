@@ -18,8 +18,7 @@ Yet, a considerable amount of fraud can only be detected by observing a student'
 ## Feature Demos
 
 As a student, I should be able to book meetings with my advisor to validate my identity and explain attendance behavior that was flagged by the AI tool
-[Demo video](https://www.docs.quaid-ai.com/feature_demos/book_advising_meeting.gif)
-<img height="600" width="900" src="https://www.docs.quaid-ai.com/feature_demos/book_advising_meeting.gif" />
+<img width="1144" height="720" alt="book_advising_meeting" src="https://github.com/user-attachments/assets/799c297f-067d-4df9-b972-b2e4ebbee3c0" />
 
 ## Changelog
 
