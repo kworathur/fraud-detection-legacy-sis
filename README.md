@@ -11,6 +11,10 @@ The U.S. department of education has been using [data models](https://www.ed.gov
 
 Yet, a considerable amount of fraud can only be detected by observing a student's behavior over time. This project uses attendance data and FAFSA application fields to identify potential fraudsters in higher education institutions.
 
-## Documentation Links
+## Documentation
 
-- [Fraud detection API documentation](https://www.docs.quaid-ai.com) 
+- [Fraud detection API documentation](https://www.docs.quaid-ai.com)
+
+## Changelog
+
+v1 - Implented background checks API routes and dashboard landing page with personalized advising card
