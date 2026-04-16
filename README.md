@@ -9,6 +9,8 @@ As enrollment grows, the use of automated workflows for verifying students is th
 
 This is why I built a tool that integrates natively with student information systems (SIS), like Ellucian's experience platform, which contain student demographic data and FAFSA responses. None of the existing solutions for financial aid verification leverage **behavioral data** such as attendance data from third party platforms, which is what this tool enables.
 
+If there is enough interest from industry, this may spin-off as a startup idea!
+
 ## Documentation
 
 - [Fraud detection API documentation](https://www.docs.quaid-ai.com)
