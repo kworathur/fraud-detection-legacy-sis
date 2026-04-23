@@ -3,11 +3,14 @@
 
 # Financial Aid Fraud Detection Inside Ellucian Experience
 
-Verifying that financial aid money is disbursed to eligible students is becoming a challenge for higher education institutions, especially community colleges. The U.S. Department of Education found [**over 40$ million in loans**](https://www.ed.gov/about/news/press-release/us-department-of-education-fights-fraud-student-aid-protect-american-taxpayer) issued to ineligible recipients in the past year alone. 
+Higher education institutions today struggle to ensure that financial aid money goes in the right hands. The U.S. Department of Education found [**over 40$ million in loans**] (https://www.ed.gov/about/news/press-release/us-department-of-education-fights-fraud-student-aid-protect-american-taxpayer) issued to ineligible recipients in 2025 alone. Community colleges are the hardest hit by financial aid fraud, with institutions in California disbursing [**over 7.6$ million dollars to fraudulent identities**](https://er.educause.edu/articles/sponsored/2025/2/fighting-financial-aid-fraud-in-higher-education) in the first three quarters of 2024.
 
-As enrollment grows, the use of automated workflows for verifying students is the best way to scale an institution's enrollment drive.
+Campuses across the country rely on Student Information Systems (SIS) (e.g. Ellucian Banner) to track enrollment, coordinate aid payouts, among many other functions. Once in the system, a "student" can apply for financial aid, receive student discounts, and apply for loans without ever intending to attend classes. Quaid ("Qualified Aid") is a direct solution to this glaring issue in legacy systems, allowing for institutions to keep using their systems while tapping into the robust ID verification features of this project. Notably, this tool can integrate with learning management systems (LMSes) to perform behavioral analytics on an instutition's students to increase fraud detection coverage.
 
-This is why I built a tool that integrates natively with student information systems (SIS), like Ellucian's experience platform, which contain student demographic data and FAFSA responses. None of the existing solutions for financial aid verification leverage **behavioral data** such as attendance data from third party platforms, which is what this tool provides.
+
+## Market Analysis
+
+- Plaid is a major competitor to this product, but does not integrate behavioral data into their verification workflow. This shortcoming is crucial as some cases of enrolment fraud play out over multiple semesters as students skip classes and use AI bots to attend their classes, while receiving aid payouts.
 
 ## Documentation
 
